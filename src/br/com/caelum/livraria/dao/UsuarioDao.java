@@ -11,6 +11,8 @@ public class UsuarioDao {
 	public boolean existe(Usuario usuario) {
 		
 		EntityManager em = new JPAUtil().getEntityManager();
+		
+		//Verifica se o email e senha do usuario existe no sistema
 		TypedQuery<Usuario> query = em.createQuery(
 				  " select u from Usuario u "
 				+ " where u.email = :pEmail and u.senha = :pSenha", Usuario.class);
