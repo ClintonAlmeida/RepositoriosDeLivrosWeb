@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<ui:composition template="_template.xhtml">
+
+		<ui:define name="titulo">
+				Login
+		</ui:define>
+
+		<ui:define name="conteudo">
+		
+			<h:messages globalOnly="true" />
+		
+			<h:form id="login">
+				<fieldset>
+					<legend>Login</legend>
+					<h:panelGrid columns="3">
+
+						<h:outputLabel value="Email:" for="email" />
+						<h:inputText id="email" value="#{loginBean.usuario.email}" required="true">
+							<f:passThroughAttribute name="type" value="email" />
+						</h:inputText>
+						<h:message for="email" id="messageEmail" />
+						
+						<h:outputLabel value="Senha:" for="senha" />
+						<h:inputText id="senha" value="#{loginBean.usuario.senha}" required="true">
+							<f:passThroughAttribute name="type" value="password" />
+						</h:inputText> 
+						<h:message for="senha" id="messageSenha" />
+
+						<h:commandButton value="Efetue Login" action="#{loginBean.efetuaLogin}" />
+					</h:panelGrid>
+				</fieldset>
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</html>
