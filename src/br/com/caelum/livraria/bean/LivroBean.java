@@ -119,6 +119,12 @@ public class LivroBean implements Serializable {
 		// O trecho abaixo te redireciona para a pagina de criação de autor
 		return "autor?faces-redirect=true";
 	}
+	
+	public String formUsuario() {
+		System.out.println("Chamanda do formulÃ¡rio do Autor.");
+		// O trecho abaixo te redireciona para a pagina de criação de autor
+		return "usuario?faces-redirect=true";
+	}
 
 	// Esta função obriga que no formulario o ISBN comece com o digito um
 	public void comecaComDigitoUm(FacesContext fc, UIComponent component, Object value) throws ValidatorException {

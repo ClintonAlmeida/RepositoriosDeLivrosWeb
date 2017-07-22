@@ -1,10 +1,14 @@
 package br.com.caelum.livraria.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Usuario implements Serializable {
@@ -14,8 +18,18 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	private String nome;
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	private String email;
 	private String senha;
+	
 	
 	public String getEmail() {
 		return email;
@@ -41,6 +55,10 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "Usuario: " + this.email;
+	}
 
 }

@@ -43,7 +43,7 @@ public class LoginBean {
 		context.getExternalContext().getFlash().setKeepMessages(true);
 		// Caso o login ou senha esteja incorreto manda uma mensagem dizendo que o
 		// usuario n„o foi encontrado
-		context.addMessage(null, new FacesMessage("Usu√°rio n√£o encontrado"));
+		context.addMessage(null, new FacesMessage("Usuario n„o encontrado"));
 		// O usuario È redirecionado para a pagina de login novamente, ele nunca vai
 		// conseguir acessar sem realizar um login
 		return "login?faces-redirect=true";
