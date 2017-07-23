@@ -119,7 +119,21 @@ public class LivroBean implements Serializable {
 		// O trecho abaixo te redireciona para a pagina de criação de autor
 		return "autor?faces-redirect=true";
 	}
-	
+
+	// Está função é chamada quando se clica no cadastrar um autor.
+	public String formPainelDeLivros() {
+		System.out.println("Chamanda do formulÃ¡rio do Autor.");
+		// O trecho abaixo te redireciona para a pagina de criação de autor
+		return "painelLivros?faces-redirect=true";
+	}
+
+	// Está função é chamada quando se clica no cadastrar um autor.
+	public String formLivro() {
+		System.out.println("Chamanda do formulÃ¡rio do Autor.");
+		// O trecho abaixo te redireciona para a pagina de criação de autor
+		return "livro?faces-redirect=true";
+	}
+
 	public String formUsuario() {
 		System.out.println("Chamanda do formulÃ¡rio do Autor.");
 		// O trecho abaixo te redireciona para a pagina de criação de autor
