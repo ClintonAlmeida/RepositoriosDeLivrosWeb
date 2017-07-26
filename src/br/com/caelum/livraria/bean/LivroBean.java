@@ -94,7 +94,7 @@ public class LivroBean implements Serializable {
 		DAO<Livro> dao = new DAO<Livro>(Livro.class);
 		
 		// Ao clicar no metodo gravar está condição é ativada, caso o livro já exista
-		// ele é atualizado, caso contrario ele é atualizado
+		// ele é atualizado, caso contrario ele é atualizadoasd
 		if (this.livro.getId() == null) {
 			dao.adiciona(this.livro);
 			this.livros = dao.listaTodos();

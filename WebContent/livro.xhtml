@@ -74,7 +74,7 @@
 					<p:commandLink value="ou cadastrar novo autor"
 						action="#{livroBean.formAutor}" immediate="true" update="@all" />
 				</p:panelGrid>
-
+			
 				<p:dataTable value="#{livroBean.autoresDoLivro}" var="autor"
 					id="tabelaAutores" emptyMessage="Nenhum autor">
 					<p:column>
