@@ -43,9 +43,16 @@ public class LivroBean implements Serializable {
 		return livro;
 	}
 
+	private List<Livro> livros;
+	
 	// Lista todos os livros no banco
 	public List<Livro> getLivros() {
-		return new DAO<Livro>(Livro.class).listaTodos();
+		DAO<Livro> dao = new DAO<Livro>(Livro.class);
+		if(this.livros == null) {
+			this.livros = dao.listaTodos();
+		}
+		
+		return livros;
 	}
 
 	// Lista todos os autores no banco
@@ -84,13 +91,15 @@ public class LivroBean implements Serializable {
 					new FacesMessage("Livro deve ter pelo menos um Autor."));
 			return;
 		}
-
+		DAO<Livro> dao = new DAO<Livro>(Livro.class);
+		
 		// Ao clicar no metodo gravar está condição é ativada, caso o livro já exista
 		// ele é atualizado, caso contrario ele é atualizado
 		if (this.livro.getId() == null) {
-			new DAO<Livro>(Livro.class).adiciona(this.livro);
+			dao.adiciona(this.livro);
+			this.livros = dao.listaTodos();
 		} else {
-			new DAO<Livro>(Livro.class).atualiza(this.livro);
+			dao.atualiza(this.livro);
 		}
 
 		this.livro = new Livro();
