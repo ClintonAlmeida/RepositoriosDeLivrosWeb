@@ -13,6 +13,7 @@
 
 			<!-- Menu de todas as paginas abaixo -->
 			
+			<p:growl id="growl" showDetail="true" autoUpdate="true" />
 			<h:form id="menu" rendered="#{usuarioLogado != null}">
 			<p:growl id="messages" />
 
@@ -26,7 +27,7 @@
 					</p:submenu>
 				</p:submenu>
 
-				<p:submenu label="Edit" icon="ui-icon-pencil">
+				<p:submenu label="Edit" icon="fa fa-fw fa-edit">
 					<p:menuitem value="Undo" url="#"
 						icon="ui-icon-arrowreturnthick-1-w" />
 					<p:menuitem value="Redo" url="#"
@@ -43,18 +44,8 @@
 					</p:submenu>
 				</p:submenu>
 
-				<p:submenu label="Actions" icon="ui-icon-gear">
-					<p:submenu label="Ajax" icon="ui-icon-refresh">
-						<p:menuitem value="Save" actionListener="#{menuView.save}"
-							icon="ui-icon-disk" update="messages" />
-						<p:menuitem value="Update" actionListener="#{menuView.update}"
-							icon="ui-icon-arrowrefresh-1-w" update="messages" />
-					</p:submenu>
-					<p:submenu label="Non-Ajax" icon="ui-icon-newwin">
-						<p:menuitem value="Delete" actionListener="#{menuView.delete}"
-							icon="ui-icon-close" update="messages" ajax="false" />
-					</p:submenu>
-				</p:submenu>
+				
+			
 
 				<p:menuitem value="Quit" url="http://www.primefaces.org"
 					icon="ui-icon-close" />
@@ -62,7 +53,7 @@
 				<f:facet name="options">
 
 					<p:commandButton value="Logout" rendered="#{usuarioLogado != null}"
-						icon="ui-icon-extlink" action="#{loginBean.deslogar}"
+						icon="fa fa-fw fa-sign-out" action="#{loginBean.deslogar}"
 						update=":menu" />
 
 
