@@ -28,12 +28,15 @@ public class LoginBean {
 		FacesContext context = FacesContext.getCurrentInstance();
 		// Booleano que verifica se o usuario está logado sim ou nao.
 		boolean existe = new UsuarioDao().existe(this.usuario);
-
+		
+		
+		
 		// Se o usuario estiver logado no sistema ele é redirecionado para a pagina de
 		// livros
 		if (existe) {
 			// a linha de codigo abaixo usa um MapList que tem como id = "usuarioLogado" e
 			// valor = e o usuario atual do sistema
+			
 			context.getExternalContext().getSessionMap().put("usuarioLogado", this.usuario);
 			// O usuario é redirecionado para a pagina Livros.xhtml
 			return "livro?faces-redirect=true";
@@ -43,7 +46,7 @@ public class LoginBean {
 		context.getExternalContext().getFlash().setKeepMessages(true);
 		// Caso o login ou senha esteja incorreto manda uma mensagem dizendo que o
 		// usuario não foi encontrado
-		context.addMessage(null, new FacesMessage("Usuario não encontrado"));
+		context.addMessage(null, new FacesMessage("Usuario não encontrado ou Inativo"));
 		// O usuario é redirecionado para a pagina de login novamente, ele nunca vai
 		// conseguir acessar sem realizar um login
 		return "login?faces-redirect=true";

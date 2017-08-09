@@ -23,8 +23,16 @@ public class UsuarioBean {
 	}
 	
 	public List<Usuario> getUsuarios() {
+	
 		return new DAO<Usuario>(Usuario.class).listaTodos();
 	}
+	
+	public void verificaSeEstaAtivo(Usuario usuario) {
+		
+		DAO<Usuario> usuarios = new DAO<Usuario>(Usuario.class);
+		
+	}
+	
 	
 	public void gravar() {
 		System.out.println("Gravando autor " + this.usuario.getEmail());

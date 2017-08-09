@@ -15,10 +15,12 @@ public class UsuarioDao {
 		//Verifica se o email e senha do usuario existe no sistema
 		TypedQuery<Usuario> query = em.createQuery(
 				  " select u from Usuario u "
-				+ " where u.email = :pEmail and u.senha = :pSenha", Usuario.class);
+				+ " where (u.email = :pEmail and u.senha = :pSenha) and "
+				+ "(u.ativo = :pAtivo)", Usuario.class);
 		
 		query.setParameter("pEmail", usuario.getEmail());
 		query.setParameter("pSenha", usuario.getSenha());
+		query.setParameter("pAtivo", usuario.isAtivo());
 		try {
 			Usuario resultado =  query.getSingleResult();
 		} catch (NoResultException ex) {
