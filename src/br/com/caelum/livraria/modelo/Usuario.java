@@ -17,6 +17,8 @@ public class Usuario implements Serializable {
 	private String nome;
 	private String email;
 	private String senha;
+	private String cpf;
+	private String perfil;
 	private boolean ativo = true;
 
 	
@@ -52,6 +54,16 @@ public class Usuario implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
+	
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 
 	public String getSenha() {
 		return senha;
@@ -61,6 +73,15 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 	
+	
+	public String getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
+	}
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

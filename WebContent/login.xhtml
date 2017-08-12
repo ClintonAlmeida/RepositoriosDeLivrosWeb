@@ -6,40 +6,47 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<ui:composition template="_template.xhtml">
+<ui:composition template="_template.xhtml">
 
-		<ui:define name="titulo">
-				<p:outputPanel>Login</p:outputPanel>
-		</ui:define>
+	<ui:define name="titulo">
+		<p:outputPanel>Login</p:outputPanel>
+	</ui:define>
 
-		<ui:define name="conteudo">
-		
-			<p:messages globalOnly="true" />
+
+	<ui:define name="conteudo">
+
+		<p:messages globalOnly="true" />
+
 		
 			<h:form id="login">
 				<p:fieldset legend="Login">
-				
-					
+
+
 					<h:panelGrid columns="3">
 
 						<p:outputLabel value="Email:" for="email" />
-						<p:inputText id="email" value="#{loginBean.usuario.email}" required="true">
+						<p:inputText id="email" value="#{loginBean.usuario.email}"
+							required="true">
 							<f:passThroughAttribute name="type" value="email" />
 						</p:inputText>
 						<p:message for="email" id="messageEmail" />
-						
+
 						<p:outputLabel value="Senha:" for="senha" />
-						<p:password id="senha" value="#{loginBean.usuario.senha}" feedback="true" promptLabel="Digite sua Senha" weakLabel="Fraca" goodLabel="Bom" strongLabel="Forte" />
-							
-			
+						<p:password id="senha" value="#{loginBean.usuario.senha}"
+							feedback="true" promptLabel="Digite sua Senha" weakLabel="Fraca"
+							goodLabel="Bom" strongLabel="Forte" />
+
+
 						<p:message for="senha" id="messageSenha" />
 
-						<p:commandButton value="Efetue Login" action="#{loginBean.efetuaLogin}" update="@form" process="@form" />
+						<p:commandButton value="Efetue Login"
+							action="#{loginBean.efetuaLogin}" update="@form" process="@form" />
 					</h:panelGrid>
 				</p:fieldset>
 			</h:form>
-		</ui:define>
 
-	</ui:composition>
+	</ui:define>
+
+</ui:composition>
 
 </html>

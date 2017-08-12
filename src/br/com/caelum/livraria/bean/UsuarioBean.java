@@ -1,5 +1,6 @@
 package br.com.caelum.livraria.bean;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -13,6 +14,11 @@ import br.com.caelum.livraria.modelo.Usuario;
 public class UsuarioBean {
 
 	private Usuario usuario = new Usuario();
+	private List<String> perfis = Arrays.asList("Autor", "Leitor");
+
+	public List<String> getPerfis() {
+		return perfis;
+	}
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -21,19 +27,12 @@ public class UsuarioBean {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
+
 	public List<Usuario> getUsuarios() {
-	
+
 		return new DAO<Usuario>(Usuario.class).listaTodos();
 	}
-	
-	public void verificaSeEstaAtivo(Usuario usuario) {
-		
-		DAO<Usuario> usuarios = new DAO<Usuario>(Usuario.class);
-		
-	}
-	
-	
+
 	public void gravar() {
 		System.out.println("Gravando autor " + this.usuario.getEmail());
 

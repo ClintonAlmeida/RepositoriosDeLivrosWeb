@@ -124,27 +124,27 @@ public class LivroBean implements Serializable {
 
 	// Está função é chamada quando se clica no cadastrar um autor.
 	public String formAutor() {
-		System.out.println("Chamanda do formulÃ¡rio do Autor.");
+		System.out.println("Chamanda do formulario do Autor.");
 		// O trecho abaixo te redireciona para a pagina de criação de autor
 		return "autor?faces-redirect=true";
 	}
 
 	// Está função é chamada quando se clica no cadastrar um autor.
 	public String formPainelDeLivros() {
-		System.out.println("Chamanda do formulÃ¡rio do Autor.");
+		System.out.println("Chamanda do formulario do Autor.");
 		// O trecho abaixo te redireciona para a pagina de criação de autor
 		return "painelLivros?faces-redirect=true";
 	}
 
 	// Está função é chamada quando se clica no cadastrar um autor.
 	public String formLivro() {
-		System.out.println("Chamanda do formulÃ¡rio do Autor.");
+		System.out.println("Chamanda do formulario do Autor.");
 		// O trecho abaixo te redireciona para a pagina de criação de autor
 		return "livro?faces-redirect=true";
 	}
 
 	public String formUsuario() {
-		System.out.println("Chamanda do formulÃ¡rio do Autor.");
+		System.out.println("Chamanda do formulario do Autor.");
 		// O trecho abaixo te redireciona para a pagina de criação de autor
 		return "usuario?faces-redirect=true";
 	}
@@ -156,7 +156,7 @@ public class LivroBean implements Serializable {
 		String valor = value.toString();
 		if (!valor.startsWith("1")) {
 			// Informa que o ISBN deve começar com um
-			throw new ValidatorException(new FacesMessage("ISBN deveria comeÃ§ar com 1"));
+			throw new ValidatorException(new FacesMessage("ISBN deve começar com 1"));
 		}
 
 	}
