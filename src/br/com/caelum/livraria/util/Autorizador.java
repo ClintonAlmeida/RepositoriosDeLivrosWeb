@@ -13,7 +13,7 @@ public class Autorizador implements PhaseListener {
 	private static final long serialVersionUID = 1L;
 
 	/*
-	 * Classe responsavel pelas permissões dos usuarios no sistema
+	 * Classe responsavel pelas permissï¿½es dos usuarios no sistema
 	 * 
 	 * @see javax.faces.event.PhaseListener#afterPhase(javax.faces.event.PhaseEvent)
 	 */
@@ -21,24 +21,24 @@ public class Autorizador implements PhaseListener {
 	@Override
 	public void afterPhase(PhaseEvent evento) {
 
-		// Pega o log da pagina atual que o usuario está logado
+		// Pega o log da pagina atual que o usuario estï¿½ logado
 		FacesContext context = evento.getFacesContext();
 		// Transforma este log em uma String
 		String nomePagina = context.getViewRoot().getViewId();
 		// Imprimi o nome da pagina
 		System.out.println(nomePagina);
 
-		// Verifica se o usuario está na pagina login.xhtml, caso ele esteja não faz
+		// Verifica se o usuario estï¿½ na pagina login.xhtml, caso ele esteja nï¿½o faz
 		// nada
 		if ("/login.xhtml".equals(nomePagina)) {
 			return;
 		}
 
-		// Pega o usuario atual que está logado no sistema e atribui uma id para o mesmo
+		// Pega o usuario atual que estï¿½ logado no sistema e atribui uma id para o mesmo
 		// com o valor usuarioLogado
 		Usuario usuarioLogado = (Usuario) context.getExternalContext().getSessionMap().get("usuarioLogado");
 
-		// Se a id="usuarioLogado" não tiver nenhum valor significa que não tem ninguem
+		// Se a id="usuarioLogado" nï¿½o tiver nenhum valor significa que nï¿½o tem ninguem
 		// logado na pagina
 		if (usuarioLogado != null) {
 			return;
