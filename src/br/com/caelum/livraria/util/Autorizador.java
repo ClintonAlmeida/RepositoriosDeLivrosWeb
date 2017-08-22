@@ -46,7 +46,7 @@ public class Autorizador implements PhaseListener {
 
 		// redirecionamento para login.xhtml
 
-		//Redireciona o usuario para a pagina de Login
+		// Redireciona o usuario para a pagina de Login
 		NavigationHandler handler = context.getApplication().getNavigationHandler();
 		handler.handleNavigation(context, null, "/login?faces-redirect=true");
 		context.renderResponse();

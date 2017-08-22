@@ -15,6 +15,15 @@ public class UsuarioBean {
 
 	private Usuario usuario = new Usuario();
 	private List<String> perfis = Arrays.asList("Autor", "Leitor");
+	SendMail enviar = new SendMail();
+
+	public SendMail getEnviar() {
+		return enviar;
+	}
+
+	public void setEnviar(SendMail enviar) {
+		this.enviar = enviar;
+	}
 
 	public List<String> getPerfis() {
 		return perfis;
@@ -41,6 +50,10 @@ public class UsuarioBean {
 		// está função está sendo usado no metodo update
 		if (this.usuario.getId() == null) {
 			new DAO<Usuario>(Usuario.class).adiciona(this.usuario);
+			this.enviar.sendMail("repositoriodelivrosdigitais@gmail.com", this.getUsuario().getEmail(),
+					"Criação de Conta",
+					"Ola, " + "\n" + "Usuario criado com sucesso, segue abaixo os dados da conta " + "\n" + "USUARIO: "
+							+ this.usuario.getEmail() + "\n" + "SENHA: " + this.usuario.getSenha());
 		} else {
 			new DAO<Usuario>(Usuario.class).atualiza(this.usuario);
 		}
