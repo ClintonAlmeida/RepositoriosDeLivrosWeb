@@ -9,12 +9,5 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry kind="lib" path="C:/Users/clinton.almeida.GIRAFFASSP/Desktop/javamail1_4_7/javamail-1.4.7/mail.jar"/>
-	<classpathentry kind="lib" path="C:/Users/clinton.almeida.GIRAFFASSP/Desktop/javamail1_4_7/javamail-1.4.7/lib/dsn.jar"/>
-	<classpathentry kind="lib" path="C:/Users/clinton.almeida.GIRAFFASSP/Desktop/javamail1_4_7/javamail-1.4.7/lib/gimap.jar"/>
-	<classpathentry kind="lib" path="C:/Users/clinton.almeida.GIRAFFASSP/Desktop/javamail1_4_7/javamail-1.4.7/lib/imap.jar"/>
-	<classpathentry kind="lib" path="C:/Users/clinton.almeida.GIRAFFASSP/Desktop/javamail1_4_7/javamail-1.4.7/lib/mailapi.jar"/>
-	<classpathentry kind="lib" path="C:/Users/clinton.almeida.GIRAFFASSP/Desktop/javamail1_4_7/javamail-1.4.7/lib/pop3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/clinton.almeida.GIRAFFASSP/Desktop/javamail1_4_7/javamail-1.4.7/lib/smtp.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
