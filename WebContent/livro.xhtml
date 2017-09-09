@@ -88,7 +88,7 @@
 				</p:dataTable>
 			</p:fieldset>
 			<p:commandButton value="Gravar" action="#{livroBean.gravar}"
-				process="@form" update="@form :formTabelaLivros:tabelaLivros" />
+				process="@form" update="@form :formTabelaLivros:tabelaLivros" ajax="false"/>
 		</h:form>
 
 		<h:form id="formTabelaLivros">
@@ -119,13 +119,13 @@
 
 				<p:column headerText="Alterar">
 					
-					<p:commandLink value="alterar"
-						action="#{livroBean.carregar(livro)}" />
+					<h:commandLink value="alterar"
+						action="#{livroBean.carregar(livro)}"/>
 				</p:column>
 
 				<p:column headerText="Remove">
 					
-					<p:commandLink value="Remove" action="#{livroBean.remover(livro)}" />
+					<h:commandLink value="Remove" action="#{livroBean.remover(livro)}"/>
 				</p:column>
 			</p:dataTable>
 		</h:form>

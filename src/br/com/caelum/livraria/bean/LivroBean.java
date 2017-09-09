@@ -108,12 +108,15 @@ public class LivroBean implements Serializable {
 	// Remove um livro do banco de dados
 	public void remover(Livro livro) {
 		System.out.println("Removendo livro");
-		new DAO<Livro>(Livro.class).remove(livro);
+		DAO<Livro> dao = new DAO<Livro>(Livro.class);
+		dao.remove(livro);
+		this.livros = dao.listaTodos();
 	}
 
 	// Remove um autor do livro na pagina livro.xhtml
 	public void removerAutorDoLivro(Autor autor) {
 		this.livro.removeAutor(autor);
+		
 	}
 
 	// Esta função é retornada quando se clica em update do livro
