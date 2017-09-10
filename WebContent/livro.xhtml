@@ -41,7 +41,7 @@
 						mask="999-9-99-999999-9" />
 
 					<p:outputLabel value="Preço:" for="preco" />
-					
+
 					<p:column>
 						<p:inputNumber id="preco" value="#{livroBean.livro.preco}">
 							<p:ajax update="preco" />
@@ -74,7 +74,7 @@
 					<p:commandLink value="ou cadastrar novo autor"
 						action="#{livroBean.formAutor}" immediate="true" update="@all" />
 				</p:panelGrid>
-			
+
 				<p:dataTable value="#{livroBean.autoresDoLivro}" var="autor"
 					id="tabelaAutores" emptyMessage="Nenhum autor">
 					<p:column>
@@ -88,29 +88,31 @@
 				</p:dataTable>
 			</p:fieldset>
 			<p:commandButton value="Gravar" action="#{livroBean.gravar}"
-				process="@form" update="@form :formTabelaLivros:tabelaLivros" ajax="false"/>
+				process="@form" update="@form :formTabelaLivros:tabelaLivros"
+				ajax="false" />
 		</h:form>
 
 		<h:form id="formTabelaLivros">
 			<p:dataTable value="#{livroBean.livros}" var="livro"
 				id="tabelaLivros" paginator="true" rows="5">
-					<f:facet name="header">Livros</f:facet>
-				<p:column headerText="Titulo" sortBy="#{livro.titulo}" filterBy="#{livro.titulo}" filterMatchMode="contains">
+				<f:facet name="header">Livros</f:facet>
+				<p:column headerText="Titulo" sortBy="#{livro.titulo}"
+					filterBy="#{livro.titulo}" filterMatchMode="contains">
 					<h:outputText value="#{livro.titulo}" />
 				</p:column>
 				<p:column headerText="ISBN" sortBy="#{livro.isbn}">
-					
+
 					<h:outputText value="#{livro.isbn}" />
 				</p:column>
 				<p:column headerText="Preço" sortBy="#{livro.preco}">
-				
+
 					<h:outputText value="#{livro.preco}">
 						<f:convertNumber type="currency" pattern="R$ #0.00"
 							currencySymbol="R$" locale="pt_BR" />
 					</h:outputText>
 				</p:column>
 				<p:column headerText="DATA" sortBy="#{livro.dataLancamento}">
-				
+
 					<h:outputText value="#{livro.dataLancamento.time}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
 							timeZone="America/Sao_Paulo" />
@@ -118,15 +120,21 @@
 				</p:column>
 
 				<p:column headerText="Alterar">
-					
+
 					<h:commandLink value="alterar"
-						action="#{livroBean.carregar(livro)}"/>
+						action="#{livroBean.carregar(livro)}" />
 				</p:column>
 
 				<p:column headerText="Remove">
-					
-					<h:commandLink value="Remove" action="#{livroBean.remover(livro)}"/>
+
+					<h:commandLink value="Remove" action="#{livroBean.remover(livro)}" />
 				</p:column>
+
+				<p:column headerText="Avaliar">
+
+					<h:commandLink value="Avaliação" action="#{livroBean.enviaObjeto(livro)}" />
+				</p:column>
+
 			</p:dataTable>
 		</h:form>
 	</ui:define>

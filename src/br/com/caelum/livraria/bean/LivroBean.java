@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+import javax.servlet.http.HttpSession;
 
 import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.modelo.Autor;
@@ -44,14 +45,14 @@ public class LivroBean implements Serializable {
 	}
 
 	private List<Livro> livros;
-	
+
 	// Lista todos os livros no banco
 	public List<Livro> getLivros() {
 		DAO<Livro> dao = new DAO<Livro>(Livro.class);
-		if(this.livros == null) {
+		if (this.livros == null) {
 			this.livros = dao.listaTodos();
 		}
-		
+
 		return livros;
 	}
 
@@ -92,7 +93,7 @@ public class LivroBean implements Serializable {
 			return;
 		}
 		DAO<Livro> dao = new DAO<Livro>(Livro.class);
-		
+
 		// Ao clicar no metodo gravar está condição é ativada, caso o livro já exista
 		// ele é atualizado, caso contrario ele é atualizadoasd
 		if (this.livro.getId() == null) {
@@ -116,7 +117,7 @@ public class LivroBean implements Serializable {
 	// Remove um autor do livro na pagina livro.xhtml
 	public void removerAutorDoLivro(Autor autor) {
 		this.livro.removeAutor(autor);
-		
+
 	}
 
 	// Esta função é retornada quando se clica em update do livro
@@ -162,5 +163,14 @@ public class LivroBean implements Serializable {
 			throw new ValidatorException(new FacesMessage("ISBN deve começar com 1"));
 		}
 
+	}
+
+	public String enviaObjeto(Livro livro) {
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
+		session.setAttribute("livroId", livro);
+		
+		return "avaliacao?faces-redirect=true";
 	}
 }

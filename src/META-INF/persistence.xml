@@ -9,6 +9,7 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
 		<class>br.com.caelum.livraria.modelo.Usuario</class>
+		<class>br.com.caelum.livraria.modelo.Comentario</class>
 		<class>br.com.caelum.livraria.modelo.Livro</class>
 		<class>br.com.caelum.livraria.modelo.Autor</class>
 

@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -27,9 +28,26 @@ public class Livro implements Serializable {
 	private double preco;
 	@Temporal(TemporalType.DATE)
 	private Calendar dataLancamento = Calendar.getInstance();
+	private Integer avaliacao;
 
-	@ManyToMany(fetch=FetchType.EAGER)
+	public Integer getAvaliacao() {
+
+		return avaliacao;
+	}
+
+	public void setAvaliacao(Integer avaliacao) {
+		this.avaliacao = avaliacao;
+	}
+
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Autor> autores = new ArrayList<Autor>();
+
+	@OneToMany
+	private List<Comentario> comentarios = new ArrayList<Comentario>();
+
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
 
 	public List<Autor> getAutores() {
 		return autores;
