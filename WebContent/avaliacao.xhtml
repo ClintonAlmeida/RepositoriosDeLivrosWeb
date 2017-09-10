@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+
+	<f:metadata>
+
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{ratingView.recebeObjeto}" />
+		</f:metadata>
+
+	</f:metadata>
+
+
+	<ui:define name="titulo">
+		<p:outputPanel>Avaliacao</p:outputPanel>
+	</ui:define>
+
+
+	<ui:define name="conteudo">
+
+		<h:form>
+			<p:dataScroller value="#{ratingView.livro}" var="livro">
+				<f:facet name="header">
+            Avalie está obra
+        </f:facet>
+
+				<h:panelGrid columns="2" style="width:100%">
+
+
+					<p:outputPanel>
+						<h:panelGrid columns="2" cellpadding="5">
+							<h:outputText value="Titulo da Obra:" />
+							<h:inputText value="#{livro.titulo}" style="font-weight: bold" />
+
+							<h:outputText value="ISBN:" />
+							<h:outputText value="#{livro.isbn}" style="font-weight: bold" />
+
+							<h:outputText value="Data de Lançamento:" />
+							<h:outputText value="#{livro.dataLancamento.time}"
+								style="font-weight: bold">
+								<f:convertDateTime pattern="dd/MM/yyyy"
+									timeZone="America/Sao_Paulo" />
+							</h:outputText>
+
+
+
+							<p:rating value="#{ratingView.rating3}" />
+
+						</h:panelGrid>
+
+					</p:outputPanel>
+				</h:panelGrid>
+
+
+				<p:growl id="messages" showDetail="true" />
+
+				<h:panelGrid columns="1" cellpadding="5">
+
+					<p:inputTextarea rows="6" cols="33" />
+
+
+
+
+
+
+
+
+
+
+
+
+				</h:panelGrid>
+
+
+
+				<p:commandButton value="Gravar" update="display"
+					oncomplete="PF('dlg').show()" style="margin:5px"
+					action="#{ratingView.gravarAvaliacao}" />
+
+				<p:dialog header="Values" widgetVar="dlg" showEffect="fade"
+					hideEffect="fade">
+					<h:panelGrid id="display" columns="2" cellpadding="5">
+
+						<h:outputText value="Rating 3:" />
+						<h:outputText value="#{livroBean.livro.avaliacao}" />
+					</h:panelGrid>
+				</p:dialog>
+
+
+
+
+			</p:dataScroller>
+
+
+		</h:form>
+
+
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

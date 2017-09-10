@@ -165,6 +165,9 @@ public class LivroBean implements Serializable {
 
 	}
 
+	/* Assim que o usuario clica em avaliacao é guardado o objeto livro
+	 * e enviado para a pagina ratingView
+	 */
 	public String enviaObjeto(Livro livro) {
 
 		FacesContext fc = FacesContext.getCurrentInstance();
