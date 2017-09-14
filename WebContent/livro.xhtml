@@ -49,11 +49,18 @@
 					</p:column>
 
 
-					<p:outputLabel for="dataLancamento" value="Data de Nascimento" />
+					<p:outputLabel for="dataLancamento" value="Data de Lançamento" />
 					<p:calendar id="dataLancamento"
 						value="#{livroBean.livro.dataLancamento.time}" locale="de"
 						navigator="true" pattern="dd-MM-yyyy" timeZone="America/Sao_Paulo"
 						mask="true" />
+
+					<h:form enctype="multipart/form-data">
+						<p:fileUpload value="#{uploadBasicoBean.uploadedFile}"
+							mode="simple" />
+						<p:commandButton value="Enviar" ajax="false"
+							actionListener="#{uploadBasicoBean.upload}" />
+					</h:form>
 
 				</p:panelGrid>
 
@@ -132,7 +139,8 @@
 
 				<p:column headerText="Avaliar">
 
-					<h:commandLink value="Avaliação" action="#{livroBean.enviaObjeto(livro)}" />
+					<h:commandLink value="Avaliação"
+						action="#{livroBean.enviaObjeto(livro)}" />
 				</p:column>
 
 			</p:dataTable>
