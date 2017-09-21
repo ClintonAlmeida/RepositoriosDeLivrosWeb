@@ -1,6 +1,7 @@
 package br.com.caelum.livraria.modelo;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,11 +16,10 @@ public class Comentario {
 	@GeneratedValue
 	private Integer id;
 
-	
-	private String comentario;
+	private String mensagem;
 
 	private String autorDoComentario;
-	
+
 	@Temporal(TemporalType.DATE)
 	private Calendar dataLancamento = Calendar.getInstance();
 
@@ -31,12 +31,12 @@ public class Comentario {
 		this.id = id;
 	}
 
-	public String getComentario() {
-		return comentario;
+	public String getMensagem() {
+		return mensagem;
 	}
 
-	public void setComentario(String comentario) {
-		this.comentario = comentario;
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
 	}
 
 	public String getAutorDoComentario() {
@@ -55,7 +55,10 @@ public class Comentario {
 		this.dataLancamento = dataLancamento;
 	}
 	
+	@Override
+	public String toString() {
 	
-	
+		return this.mensagem;
+	}
 
 }

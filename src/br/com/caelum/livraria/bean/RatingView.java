@@ -7,15 +7,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import br.com.caelum.livraria.dao.DAO;
+import br.com.caelum.livraria.dao.UsuarioDao;
+import br.com.caelum.livraria.modelo.Comentario;
 import br.com.caelum.livraria.modelo.Livro;
+import br.com.caelum.livraria.modelo.Usuario;
 
 @ManagedBean
 @SessionScoped
 public class RatingView {
 
 	private Integer rating3;
+	private Usuario usuario = new Usuario();
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	private Livro livro = new Livro();
+	private Comentario comentario = new Comentario();
+
+	public Comentario getComentario() {
+		return comentario;
+	}
+
+	public void setComentario(Comentario comentario) {
+		this.comentario = comentario;
+	}
 
 	public Livro getLivro() {
 		return livro;
@@ -25,7 +46,7 @@ public class RatingView {
 		this.livro = livro;
 	}
 
-	 /* 
+	/*
 	 * Recebe o objeto de livroBean e deixa disponivel para uso
 	 */
 	public void recebeObjeto() {
@@ -34,7 +55,7 @@ public class RatingView {
 				.getRequest();
 		HttpSession session = (HttpSession) request.getSession();
 		this.livro = (Livro) session.getAttribute("livroId");
-
+		this.usuario = (Usuario) session.getAttribute("usuario");
 	}
 
 	public String gravarAvaliacao() {
@@ -42,6 +63,8 @@ public class RatingView {
 
 		// O metodo abaixo verifica se o livro possui um autor, caso não possua ele não
 		// permite a gravação
+
+		salvaComentario();
 
 		DAO<Livro> dao = new DAO<Livro>(Livro.class);
 
@@ -52,9 +75,30 @@ public class RatingView {
 
 		} else {
 			dao.atualiza(this.livro);
+
 		}
 
 		return "livro?faces-redirect=true";
+
+	}
+
+	public void salvaComentario() {
+
+		ComentarioBean bean = new ComentarioBean();
+		Usuario usuarioNovo = new UsuarioDao().retornaUsuario(this.usuario);// Retorna o usuario da base de dados
+		comentario.setAutorDoComentario(usuarioNovo.getNome());// Setando o autor do comentario
+
+		if (!this.livro.getComentarios().isEmpty()) {
+
+			this.livro.adicionaComentario(comentario);
+			bean.gravarComentario(comentario);
+
+		} else {
+
+			this.livro.adicionaComentario(comentario);
+			bean.gravarComentario(comentario);
+		}
+		this.comentario = new Comentario();
 	}
 
 	/*

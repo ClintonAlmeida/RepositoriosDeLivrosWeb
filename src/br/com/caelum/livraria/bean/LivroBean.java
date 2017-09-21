@@ -51,6 +51,7 @@ public class LivroBean implements Serializable {
 		DAO<Livro> dao = new DAO<Livro>(Livro.class);
 		if (this.livros == null) {
 			this.livros = dao.listaTodos();
+			System.out.println(this.livro.getTitulo());
 		}
 
 		return livros;
@@ -165,15 +166,16 @@ public class LivroBean implements Serializable {
 
 	}
 
-	/* Assim que o usuario clica em avaliacao é guardado o objeto livro
-	 * e enviado para a pagina ratingView
+	/*
+	 * Assim que o usuario clica em avaliacao é guardado o objeto livro e enviado
+	 * para a pagina ratingView
 	 */
 	public String enviaObjeto(Livro livro) {
 
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
 		session.setAttribute("livroId", livro);
-		
+
 		return "avaliacao?faces-redirect=true";
 	}
 }

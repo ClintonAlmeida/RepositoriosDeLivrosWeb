@@ -60,4 +60,23 @@ public class UsuarioDao {
 		return false;
 	}
 
+	public Usuario retornaUsuario(Usuario usuario) {
+
+		EntityManager em = new JPAUtil().getEntityManager();
+
+		// Verifica se o email e senha do usuario existe no sistema
+		TypedQuery<Usuario> query = em.createQuery(" Select u FROM Usuario u WHERE u.email = :pEmail", Usuario.class);
+
+		query.setParameter("pEmail", usuario.getEmail());
+		
+		Usuario usuarios = query.getSingleResult();
+		
+				
+
+		em.close();
+
+		return usuarios;
+	}
+
+	
 }

@@ -14,6 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 public class Livro implements Serializable {
 
@@ -42,9 +45,16 @@ public class Livro implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Autor> autores = new ArrayList<Autor>();
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<Comentario> comentarios = new ArrayList<Comentario>();
 
+	
+	public void adicionaComentario(Comentario comentario) {
+		this.comentarios.add(comentario);
+	}
+	
+	
 	public List<Comentario> getComentarios() {
 		return comentarios;
 	}
