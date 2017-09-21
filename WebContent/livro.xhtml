@@ -55,12 +55,22 @@
 						navigator="true" pattern="dd-MM-yyyy" timeZone="America/Sao_Paulo"
 						mask="true" />
 
+<<<<<<< HEAD
+						<h:form enctype="multipart/form-data">
+						    <p:growl id="messages" showDetail="true" />
+
+						    <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+
+						    <p:commandButton value="Submit" ajax="false" actionListener="#{fileUploadView.upload}" disabled="true" />
+						</h:form>
+=======
 					<h:form enctype="multipart/form-data">
 						<p:fileUpload value="#{uploadBasicoBean.uploadedFile}"
 							mode="simple" />
 						<p:commandButton value="Enviar" ajax="false"
 							actionListener="#{livroBean.enviaObjeto}" />
 					</h:form>
+>>>>>>> eaae894c83a1c974db2d803eca90693107f1734d
 
 				</p:panelGrid>
 
