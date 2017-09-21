@@ -11,6 +11,8 @@ import br.com.caelum.livraria.modelo.Usuario;
 
 public class TestaBanco {
 	
+	
+	//Classe criada para testar consultar do JPQL
 	public static void main(String[] args) {
 		
 		EntityManager em = new JPAUtil().getEntityManager();
