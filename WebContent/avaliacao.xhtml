@@ -65,10 +65,12 @@
 
 				<h:panelGrid columns="1" cellpadding="5">
 
-					<p:inputTextarea rows="6" cols="33"
+					<p:inputTextarea rows="6" cols="33" id="comentario"
 						value="#{ratingView.comentario.mensagem}" required="true"
 						requiredMessage="Deixe um 
-						comentario nesta obra" />
+						comentario nesta obra" validator="#{ratingView.apenasMilLetras}">
+					</p:inputTextarea>
+					
 
 				</h:panelGrid>
 

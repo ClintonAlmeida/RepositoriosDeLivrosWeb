@@ -18,7 +18,7 @@
 
 
 	<ui:define name="titulo">
-		<p:outputPanel style="text-align: center" >Comentarios</p:outputPanel>
+		<p:outputPanel style="text-align: center">Comentarios</p:outputPanel>
 	</ui:define>
 
 
@@ -30,32 +30,28 @@
             Livro #{ratingView.livro.titulo}
         </f:facet>
 
-				<h:panelGrid columns="1" style="width:100%"
-					>
 
+				<h:panelGrid columns="1"
+					style="width:50%; height:50%; text-align: justify">
+					<h:panelGrid columns="1" cellpadding="1">
+						<h:outputText value="" />
+						<h:outputText value="#{comentario.mensagem}" />
+					</h:panelGrid>
 
-					<p:outputPanel>
-						<h:panelGrid columns="1" cellpadding="3">
-							<h:outputText value="" />
-							<h:outputText value="#{comentario.mensagem}" style="font-weight: bold" />
+					<h:panelGrid columns="2">
+						<h:outputText value="#{comentario.autorDoComentario}"
+							style="font-weight: bold" />
 
-							<h:outputText value="" />
-							<h:outputText value="#{comentario.autorDoComentario}"
-								style="font-weight: bold" />
+						<h:outputText value="#{comentario.dataLancamento.time}"
+							style="font-weight: bold">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+						</h:outputText>
 
-
-							<h:outputText value="" />
-							<h:outputText value="#{comentario.dataLancamento.time}"
-								style="font-weight: bold">
-								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
-							</h:outputText>
-							
-							<br/>
-							<br/>
-
-						</h:panelGrid>
-					</p:outputPanel>
+					</h:panelGrid>
+					<p:rating value="#{comentario.avaliacaoPorComentario}"></p:rating>
 				</h:panelGrid>
+				<br />
+				<br />
 			</p:dataScroller>
 		</h:form>
 

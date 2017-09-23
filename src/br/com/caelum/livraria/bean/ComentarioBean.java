@@ -39,5 +39,7 @@ public class ComentarioBean implements Serializable {
 		dao.adiciona(comentario);
 		System.out.println("O comentario diz: " + comentario.getMensagem());
 	}
+	
+	
 
 }

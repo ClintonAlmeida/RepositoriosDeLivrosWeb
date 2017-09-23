@@ -108,6 +108,7 @@ public class RatingView {
 		ComentarioBean bean = new ComentarioBean();
 		Usuario usuarioNovo = new UsuarioDao().retornaUsuario(this.usuario);// Retorna o usuario da base de dados
 		comentario.setAutorDoComentario(usuarioNovo.getNome());// Setando o autor do comentario
+		//comentario.setAvaliacaoPorComentario(rating3);
 		comentario.setLivro(this.livro);
 
 		if (!this.livro.getComentarios().isEmpty()) {
@@ -138,6 +139,7 @@ public class RatingView {
 	 */
 	public void setRating3(Integer rating3) {
 
+		comentario.setAvaliacaoPorComentario(rating3);
 		if (this.livro.getAvaliacao() == null) {
 			this.livro.setAvaliacao(rating3);
 		} else {
@@ -148,13 +150,15 @@ public class RatingView {
 
 	}
 
-	public void deveTerAvaliacao(FacesContext fc, UIComponent component, Object value) throws ValidatorException {
+	
+	public void apenasMilLetras(FacesContext fc, UIComponent component, Object value) throws ValidatorException {
 
 		// Verifica se o o que foi digitado começa com um
 		
-		if (this.rating3 == null) {
+		String valor = value.toString();
+		if (valor.length() >= 1000) {
 			// Informa que o ISBN deve começar com um
-			throw new ValidatorException(new FacesMessage("Avalie o livro de 1 a 5 estrelas"));
+			throw new ValidatorException(new FacesMessage("Voce só pode inserir mil caracteres"));
 		}
 
 	}
