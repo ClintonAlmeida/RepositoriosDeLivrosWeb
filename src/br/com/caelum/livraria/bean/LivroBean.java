@@ -12,6 +12,7 @@ import javax.faces.validator.ValidatorException;
 import javax.servlet.http.HttpSession;
 
 import br.com.caelum.livraria.dao.DAO;
+import br.com.caelum.livraria.dao.LivroDao;
 import br.com.caelum.livraria.modelo.Autor;
 import br.com.caelum.livraria.modelo.Livro;
 
@@ -56,6 +57,8 @@ public class LivroBean implements Serializable {
 
 		return livros;
 	}
+	
+
 
 	// Lista todos os autores no banco
 	public List<Autor> getAutores() {

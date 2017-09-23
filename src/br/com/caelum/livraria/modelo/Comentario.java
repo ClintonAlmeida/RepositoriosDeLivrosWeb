@@ -1,11 +1,12 @@
 package br.com.caelum.livraria.modelo;
 
 import java.util.Calendar;
-import java.util.TimeZone;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -22,6 +23,18 @@ public class Comentario {
 
 	@Temporal(TemporalType.DATE)
 	private Calendar dataLancamento = Calendar.getInstance();
+
+	@ManyToOne
+	@JoinColumn(name="livro_id")
+	private Livro livro;
+
+	public Livro getLivro() {
+		return livro;
+	}
+
+	public void setLivro(Livro livro) {
+		this.livro = livro;
+	}
 
 	public Integer getId() {
 		return id;
@@ -54,10 +67,10 @@ public class Comentario {
 	public void setDataLancamento(Calendar dataLancamento) {
 		this.dataLancamento = dataLancamento;
 	}
-	
+
 	@Override
 	public String toString() {
-	
+
 		return this.mensagem;
 	}
 

@@ -19,12 +19,14 @@
 
 	<ui:define name="titulo">
 		<p:outputPanel>Avaliacao</p:outputPanel>
+
 	</ui:define>
 
 
 	<ui:define name="conteudo">
 
 		<h:form>
+			<p:messages id="messages" />
 			<p:dataScroller value="#{ratingView.livro}" var="livro">
 				<f:facet name="header">
             Avalie está obra
@@ -50,7 +52,8 @@
 
 
 
-							<p:rating value="#{ratingView.rating3}" />
+							<p:rating value="#{ratingView.rating3}" required="true"
+								requiredMessage="Avalie entre 1 e 5 estrelas" />
 
 						</h:panelGrid>
 
@@ -58,53 +61,23 @@
 				</h:panelGrid>
 
 
-				<p:growl id="messages" showDetail="true" />
+
 
 				<h:panelGrid columns="1" cellpadding="5">
 
 					<p:inputTextarea rows="6" cols="33"
-						value="#{ratingView.comentario.mensagem}" />
-
-			
-
-
-
-
-
-
-
-
-
+						value="#{ratingView.comentario.mensagem}" required="true"
+						requiredMessage="Deixe um 
+						comentario nesta obra" />
 
 				</h:panelGrid>
 
-
-
-				<p:commandButton value="Gravar" update="display"
-					oncomplete="PF('dlg').show()" style="margin:5px"
+				<p:commandButton value="Gravar" update="@form" process="@form"
 					action="#{ratingView.gravarAvaliacao}" />
 
-				<p:dialog header="Values" widgetVar="dlg" showEffect="fade"
-					hideEffect="fade">
-					<h:panelGrid id="display" columns="2" cellpadding="5">
-
-						<h:outputText value="Rating 3:" />
-						<h:outputText value="#{livroBean.livro.avaliacao}" />
-					</h:panelGrid>
-				</p:dialog>
-
-
-
-
 			</p:dataScroller>
-
-
 		</h:form>
-
-
-
 	</ui:define>
-
 </ui:composition>
 
 </html>

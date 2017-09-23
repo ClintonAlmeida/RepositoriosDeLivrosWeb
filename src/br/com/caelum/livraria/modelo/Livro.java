@@ -45,8 +45,9 @@ public class Livro implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Autor> autores = new ArrayList<Autor>();
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="livro")
 	@Fetch(FetchMode.SUBSELECT)
+	
 	private List<Comentario> comentarios = new ArrayList<Comentario>();
 
 	
