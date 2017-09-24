@@ -28,7 +28,6 @@ public class FileUploadView {
 		}
 	}
 
-<<<<<<< HEAD
 	public void fileUploadListener(FileUploadEvent e) {
 		// Get uploaded file from the FileUploadEvent
 		this.file = e.getFile();
@@ -36,6 +35,4 @@ public class FileUploadView {
 		System.out.println(
 				"Uploaded File Name Is :: " + file.getFileName() + " :: Uploaded File Size :: " + file.getSize());
 	}
-=======
->>>>>>> 76d332fc8e57543d43e367c55fcbc73060d697aa
 }
