@@ -26,4 +26,12 @@ public class FileUploadView {
 			FacesContext.getCurrentInstance().addMessage(null, message);
 		}
 	}
+
+	public void fileUploadListener(FileUploadEvent e) {
+		// Get uploaded file from the FileUploadEvent
+		this.file = e.getFile();
+		// Print out the information of the file
+		System.out.println(
+				"Uploaded File Name Is :: " + file.getFileName() + " :: Uploaded File Size :: " + file.getSize());
+	}
 }

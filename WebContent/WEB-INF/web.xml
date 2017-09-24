@@ -19,6 +19,12 @@
 		<param-value>true</param-value>
 	</context-param>
 
+	<filter-mapping>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
+
+
 	<context-param>
 		<param-name>primefaces.UPLOADER</param-name>
 		<param-value>auto|native|commons</param-value>
