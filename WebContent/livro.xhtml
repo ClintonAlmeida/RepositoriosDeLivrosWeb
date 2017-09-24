@@ -55,19 +55,27 @@
 						navigator="true" pattern="dd-MM-yyyy" timeZone="America/Sao_Paulo"
 						mask="true" />
 
-					<h:form enctype="multipart/form-data">
-						<p:growl id="messages" showDetail="true" />
 
-						<p:fileUpload value="#{fileUploadView.file}" mode="simple"
-							skinSimple="true" />
-
-						<p:commandButton value="Submit" ajax="false"
-							actionListener="#{fileUploadView.upload}" disabled="true" />
-					</h:form>
 
 				</p:panelGrid>
 
+				<h:form enctype="multipart/form-data">
+					<p:growl id="messages" showDetail="true" />
+
+
+					<p:commandButton value="Submit" ajax="false"
+						actionListener="#{fileUploadView.upload}" disabled="false" />
+				</h:form>
+
+				<p:fileUpload value="#{fileUploadView.file}" mode="simple"
+					skinSimple="true" />
+
+				<p:commandButton value="Submit" ajax="false"
+					actionListener="#{fileUploadView.upload}" disabled="true" />
+
 			</p:fieldset>
+
+
 
 			<p:fieldset legend="Dados do Autor">
 
