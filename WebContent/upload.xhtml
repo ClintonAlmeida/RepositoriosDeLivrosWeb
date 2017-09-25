@@ -20,41 +20,19 @@
         </ui:define>
 
 	<ui:define name="conteudo">
-		<h:form>
+	
 
 			<p:messages id="messages" />
 
-			<p:fieldset legend="Dados do Livro">
-				<p:panelGrid columns="2">
-
-
-
-
-				</p:panelGrid>
-
-				<h:form enctype="multipart/form-data">
-					<p:growl id="messages" showDetail="true" />
-
-
-					<p:commandButton value="Submit" ajax="false"
-						actionListener="#{fileUploadView.upload}" disabled="false" />
-				</h:form>
+			<h:form enctype="multipart/form-data">
+				<p:growl id="messages" showDetail="true" />
 
 				<p:fileUpload value="#{fileUploadView.file}" mode="simple"
 					skinSimple="true" />
 
 				<p:commandButton value="Submit" ajax="false"
-					actionListener="#{fileUploadView.upload}" disabled="true" />
-
-			</p:fieldset>
-
-
-			<p:commandButton value="Gravar" action="#{livroBean.gravar}"
-				process="@form" update="@form :formTabelaLivros:tabelaLivros"
-				ajax="false" />
-		</h:form>
-
-
+					actionListener="#{fileUploadView.upload}" disabled="false" />
+			</h:form>
 	</ui:define>
 </ui:composition>
 
