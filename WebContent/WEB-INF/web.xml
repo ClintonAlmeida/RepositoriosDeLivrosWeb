@@ -18,16 +18,21 @@
 		<param-name>primefaces.FONT_AWESOME</param-name>
 		<param-value>true</param-value>
 	</context-param>
-
-	<!-- Esta está dando erro ou algum conflito -->
-	<!-- <filter-mapping> <filter-name>PrimeFaces FileUpload Filter</filter-name> 
-		<servlet-name>Faces Servlet</servlet-name> </filter-mapping> -->
-
-
-	<context-param>
-		<param-name>primefaces.UPLOADER</param-name>
-		<param-value>auto|native|commons</param-value>
-	</context-param>
-
+	<filter>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<filter-class>
+			org.primefaces.webapp.filter.FileUploadFilter
+		</filter-class>
+		<init-param>
+			<param-name>thresholdSize</param-name>
+			<param-value>51200</param-value>
+		</init-param>
+		<!-- Optional <init-param> <param-name>uploadDirectory</param-name> <param-value>/var/bcom/temp</param-value> 
+			</init-param> -->
+	</filter>
+	<filter-mapping>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
 
 </web-app>

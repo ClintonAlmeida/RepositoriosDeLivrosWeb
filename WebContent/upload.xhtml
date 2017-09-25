@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="_template.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="livroId" value="#{livroBean.livro.id}" />
+		<f:viewAction action="#{livroBean.carregarLivroPelaId}"
+			if="#{param.livroId != null}" />
+	</f:metadata>
+
+
+	<ui:define name="titulo">
+                Novo Livro
+        </ui:define>
+
+	<ui:define name="conteudo">
+		<h:form>
+
+			<p:messages id="messages" />
+
+			<p:fieldset legend="Dados do Livro">
+				<p:panelGrid columns="2">
+
+
+
+
+				</p:panelGrid>
+
+				<h:form enctype="multipart/form-data">
+					<p:growl id="messages" showDetail="true" />
+
+
+					<p:commandButton value="Submit" ajax="false"
+						actionListener="#{fileUploadView.upload}" disabled="false" />
+				</h:form>
+
+				<p:fileUpload value="#{fileUploadView.file}" mode="simple"
+					skinSimple="true" />
+
+				<p:commandButton value="Submit" ajax="false"
+					actionListener="#{fileUploadView.upload}" disabled="true" />
+
+			</p:fieldset>
+
+
+			<p:commandButton value="Gravar" action="#{livroBean.gravar}"
+				process="@form" update="@form :formTabelaLivros:tabelaLivros"
+				ajax="false" />
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+
+</html>

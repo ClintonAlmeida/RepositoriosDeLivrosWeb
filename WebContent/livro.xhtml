@@ -59,19 +59,13 @@
 
 				</p:panelGrid>
 
+
 				<h:form enctype="multipart/form-data">
-					<p:growl id="messages" showDetail="true" />
-
-
-					<p:commandButton value="Submit" ajax="false"
-						actionListener="#{fileUploadView.upload}" disabled="false" />
+					<p:fileUpload mode="advanced"
+						fileUploadListener="#{uploadFotoBean.handleFileUpload}"
+						allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/"
+						auto="false" />
 				</h:form>
-
-				<p:fileUpload value="#{fileUploadView.file}" mode="simple"
-					skinSimple="true" />
-
-				<p:commandButton value="Submit" ajax="false"
-					actionListener="#{fileUploadView.upload}" disabled="true" />
 
 			</p:fieldset>
 
