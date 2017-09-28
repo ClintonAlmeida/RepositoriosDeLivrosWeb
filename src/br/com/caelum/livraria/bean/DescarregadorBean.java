@@ -46,8 +46,8 @@ public class DescarregadorBean {
 		
 		// Abaixo temos um código estático, mas
 		// obviamente você pode buscar o arquivo de onde quiser :)
-		InputStream in = new FileInputStream(new File(arquivo2.getNomeArquivo()));
-		streamedContent = new DefaultStreamedContent(in, arquivo2.getCaminhoArquivo() + "'\'"  , arquivo2.getNomeArquivo());
+		InputStream in = new FileInputStream(new File("C:\\Users\\clinton.almeida.GIRAFFASSP\\Desktop\\teste"));
+		streamedContent = new DefaultStreamedContent(in, "image/jpg" , "Encerramento de lojas.PNG");
 	}
 
 }

@@ -36,6 +36,9 @@ public class Autorizador implements PhaseListener {
 		if ("/usuario.xhtml".equals(nomePagina)) {
 			return;
 		}
+		if ("/upload.xhtml".equals(nomePagina)) {
+			return;
+		}
 
 
 		// Pega o usuario atual que est� logado no sistema e atribui uma id para o mesmo
