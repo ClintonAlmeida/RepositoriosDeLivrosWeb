@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -41,6 +42,9 @@ public class Livro implements Serializable {
 	public void setAvaliacao(Integer avaliacao) {
 		this.avaliacao = avaliacao;
 	}
+	
+	@OneToOne(mappedBy="livro")
+	private Arquivo arquivo;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Autor> autores = new ArrayList<Autor>();
@@ -66,6 +70,16 @@ public class Livro implements Serializable {
 
 	public void adicionaAutor(Autor autor) {
 		this.autores.add(autor);
+	}
+	
+	
+
+	public Arquivo getArquivo() {
+		return arquivo;
+	}
+
+	public void setArquivo(Arquivo arquivo) {
+		this.arquivo = arquivo;
 	}
 
 	public Livro() {

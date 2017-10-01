@@ -3,6 +3,7 @@ package br.com.caelum.livraria.modelo;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Arquivo {
@@ -17,6 +18,9 @@ public class Arquivo {
 
 	private long tamanhoArquivo;
 
+	@OneToOne
+	private Livro livro;
+	
 	public Integer getId() {
 		return id;
 	}
