@@ -20,7 +20,7 @@ public class Arquivo {
 
 	@OneToOne
 	private Livro livro;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -53,6 +53,12 @@ public class Arquivo {
 		this.tamanhoArquivo = tamanhoArquivo;
 	}
 
+	public Livro getLivro() {
+		return livro;
+	}
 
+	public void setLivro(Livro livro) {
+		this.livro = livro;
+	}
 
 }

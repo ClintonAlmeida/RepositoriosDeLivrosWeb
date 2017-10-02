@@ -59,14 +59,8 @@
 
 				</p:panelGrid>
 
-
-				<h:form enctype="multipart/form-data">
-					<p:fileUpload mode="advanced"
-						fileUploadListener="#{uploadFotoBean.handleFileUpload}"
-						allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/"
-						auto="true" />
-				</h:form>
 			</p:fieldset>
+
 
 
 
@@ -83,7 +77,7 @@
 						update="tabelaAutores" />
 
 					<p:commandLink value="ou cadastrar novo autor"
-						action="#{livroBean.formAutor}" immediate="true" update="@all" />
+						action="#{livroBean.formAutor}" immediate="true" />
 				</p:panelGrid>
 
 				<p:dataTable value="#{livroBean.autoresDoLivro}" var="autor"
@@ -98,6 +92,12 @@
 					</p:column>
 				</p:dataTable>
 			</p:fieldset>
+				<h:form enctype="multipart/form-data">
+					<p:fileUpload mode="advanced"
+						fileUploadListener="}"
+						allowTypes="/(\.|\/)(gif|jpg|jpeg|gif|png|PNG|GIF|JPG|JPEG)$/"
+						auto="true" />
+				</h:form>
 			<p:commandButton value="Gravar" action="#{livroBean.gravar}"
 				process="@form" update="@form :formTabelaLivros:tabelaLivros"
 				ajax="false" />

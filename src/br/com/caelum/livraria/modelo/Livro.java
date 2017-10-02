@@ -60,6 +60,7 @@ public class Livro implements Serializable {
 	}
 	
 	
+	
 	public List<Comentario> getComentarios() {
 		return comentarios;
 	}
@@ -77,6 +78,8 @@ public class Livro implements Serializable {
 	public Arquivo getArquivo() {
 		return arquivo;
 	}
+	
+	
 
 	public void setArquivo(Arquivo arquivo) {
 		this.arquivo = arquivo;
