@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -29,7 +30,8 @@ public class Livro implements Serializable {
 
 	private String titulo;
 	private String isbn;
-	private double preco;
+	@Column(columnDefinition = "VARCHAR(1000)")
+	private String sinopse;
 	@Temporal(TemporalType.DATE)
 	private Calendar dataLancamento = Calendar.getInstance();
 	private Integer avaliacao;
@@ -63,6 +65,17 @@ public class Livro implements Serializable {
 	
 	public List<Comentario> getComentarios() {
 		return comentarios;
+	}
+	
+	
+	
+
+	public String getSinopse() {
+		return sinopse;
+	}
+
+	public void setSinopse(String sinopse) {
+		this.sinopse = sinopse;
 	}
 
 	public List<Autor> getAutores() {
@@ -110,14 +123,6 @@ public class Livro implements Serializable {
 
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
-	}
-
-	public double getPreco() {
-		return preco;
-	}
-
-	public void setPreco(double preco) {
-		this.preco = preco;
 	}
 
 	public Calendar getDataLancamento() {

@@ -13,6 +13,7 @@ import org.primefaces.model.StreamedContent;
 
 import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.modelo.Arquivo;
+import br.com.caelum.livraria.modelo.Livro;
 
 @ManagedBean
 @ViewScoped
@@ -37,8 +38,12 @@ public class DescarregadorBean {
 		this.streamedContent = streamedContent;
 	}
 
-	public void descarregar() throws IOException {
-		arquivo.setId(1);
+	public void descarregar(Livro livro) throws IOException {
+		
+		
+		
+		
+		arquivo.setId(livro.getArquivo().getId());
 		Arquivo arquivo2 = new DAO<Arquivo>(Arquivo.class).buscaPorId(arquivo.getId());
 		
 		System.out.println(arquivo2.getNomeArquivo());

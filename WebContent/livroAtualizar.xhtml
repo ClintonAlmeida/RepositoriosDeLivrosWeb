@@ -9,10 +9,9 @@
 <ui:composition template="_template.xhtml">
 
 	<f:metadata>
-		<f:viewParam name="livroId" value="#{livroBean.livro.id}" />
-		<f:viewAction action="#{livroBean.carregarLivroPelaId}"
-			if="#{param.livroId != null}" />
-
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{livroBean.recebeObjeto}" />
+		</f:metadata>
 
 	</f:metadata>
 
@@ -27,7 +26,7 @@
 			<p:messages id="messages" />
 
 			<p:fieldset legend="Dados do Livro">
-				<p:panelGrid columns="2">
+				<p:panelGrid columns="2" >
 
 					<p:outputLabel value="Titulo:" for="titulo" />
 					<p:inputText id="titulo" value="#{livroBean.livro.titulo}"
@@ -61,7 +60,8 @@
 						rendered="#{livroBean.existeLivro(livro)}" />
 					<p:fileUpload value="#{livroBean.uploadedFile}" id="upload"
 						rendered="#{livroBean.existeLivro(livro)}" mode="simple"
-						skinSimple="false" required="true" />
+						skinSimple="false" required="true"  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+						invalidFileMessage="Permitido apenas arquivos em pdf e doc"/>
 
 				</p:panelGrid>
 
@@ -102,10 +102,9 @@
 
 			<br />
 
-			<p:commandButton value="Avançar" action="#{livroBean.gravar}"
+			<p:commandButton value="Gravar" action="#{livroBean.gravar}"
 				process="@form" update="@form :formTabelaLivros:tabelaLivros"
-				ajax="false"
-				actionListener="#{livroBean.enviaObjeto(livroBean.livro)}" />
+				ajax="false" actionListener="#{livroBean.upload}" />
 
 		</h:form>
 
@@ -142,23 +141,14 @@
 					<h:commandLink value="Remove" action="#{livroBean.remover(livro)}" />
 				</p:column>
 
-				<p:column headerText="Avaliar">
+				<p:column headerText="Avaliar" rendered="false">
 
 					<h:commandLink value="Avaliação"
 						action="#{livroBean.enviaObjeto(livro)}" />
 				</p:column>
 
-				<p:column headerText="Download">
-
-					<p:commandLink value="Baixar" ajax="false" 
-						actionListener="#{descarregadorBean.descarregar(livro)}">
-						<p:fileDownload value="#{descarregadorBean.streamedContent}" />
-					</p:commandLink>
-				</p:column>
-
 			</p:dataTable>
 		</h:form>
-
 
 	</ui:define>
 </ui:composition>

@@ -36,11 +36,25 @@
 
 
 
-		<p:commandButton value="Baixar" ajax="false"
-			actionListener="#{descarregadorBean.descarregar}">
-			<p:fileDownload value="#{descarregadorBean.streamedContent}" />
-		</p:commandButton>
+			<p:commandLink value="Baixar" ajax="false"
+				actionListener="#{descarregadorBean.descarregar}">
+				<p:fileDownload value="#{descarregadorBean.streamedContent}" />
+			</p:commandLink>
+
+
+
+
 		</h:form>
+
+		<script type="text/javascript">
+			function start() {
+				PF('statusDialog').show();
+			}
+
+			function stop() {
+				PF('statusDialog').hide();
+			}
+		</script>
 
 	</ui:define>
 </ui:composition>

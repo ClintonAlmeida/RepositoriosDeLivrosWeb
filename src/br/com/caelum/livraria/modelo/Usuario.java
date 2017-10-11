@@ -20,7 +20,6 @@ public class Usuario implements Serializable {
 	private String cpf;
 	private String perfil;
 	private boolean ativo = true;
-
 	
 
 	public boolean isAtivo() {

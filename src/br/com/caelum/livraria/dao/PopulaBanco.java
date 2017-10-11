@@ -80,7 +80,6 @@ public class PopulaBanco {
 		livro.setIsbn(isbn);
 		livro.setTitulo(titulo);
 		livro.setDataLancamento(parseData(data));
-		livro.setPreco(preco);
 		livro.adicionaAutor(autor);
 		return livro;
 	}
