@@ -51,7 +51,7 @@ public class LoginBean {
 
 			context.getExternalContext().getSessionMap().put("usuarioLogado", this.usuario);
 			// O usuario é redirecionado para a pagina Livros.xhtml
-			return "livro?faces-redirect=true";
+			return "listaDeLivros?faces-redirect=true";
 		}
 
 		// As mensagens de usuario não encontrado duram apenas duas requisições

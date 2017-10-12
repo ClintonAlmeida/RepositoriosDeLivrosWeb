@@ -86,14 +86,16 @@ public class RatingView {
 		// permite a gravação
 
 		salvaComentario();
-
+		
+		
+		
 		DAO<Livro> dao = new DAO<Livro>(Livro.class);
 
 		// Ao clicar no metodo gravar está condição é ativada, caso o livro já exista
 		// ele é atualizado, caso contrario ele é atualizadoasd
 		if (this.livro.getId() == null) {
 			dao.adiciona(this.livro);
-
+			
 		} else {
 			dao.atualiza(this.livro);
 

@@ -3,6 +3,7 @@ package br.com.caelum.livraria.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import br.com.caelum.livraria.modelo.Comentario;
@@ -15,8 +16,8 @@ public class LivroDao {
 	public List<Comentario> devolveLista(Livro livro) {
 
 		// Verifica se o email e senha do usuario existe no sistema
-		TypedQuery<Comentario> query = em.createQuery(
-				"Select u FROM Comentario u where livro_id = :pId", Comentario.class);
+		TypedQuery<Comentario> query = em.createQuery("Select u FROM Comentario u where livro_id = :pId",
+				Comentario.class);
 
 		query.setParameter("pId", livro.getId());
 
@@ -27,5 +28,23 @@ public class LivroDao {
 		em.close();
 
 		return comentario;
+	}
+
+	public Long retornaMediaAvaliacao(Livro livro) {
+
+		EntityManager em = new JPAUtil().getEntityManager();
+
+		// Retorna a media = soma de todas as avaliacao / pela quantidade de avaliacao
+		// do respectivo livro
+		String sql = "Select Round(sum(avaliacaoPorComentario)/count(avaliacaoPorComentario)) "
+				+ "from Comentario where livro_id = :pId";
+
+		Query query = em.createQuery(sql);
+
+		query.setParameter("pId", livro.getId());
+
+		Long media =  (Long)query.getSingleResult();
+		
+		return media;
 	}
 }

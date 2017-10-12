@@ -18,7 +18,7 @@
 
 
 	<ui:define name="titulo">
-                Novo Livro
+                Cadastro de livros
         </ui:define>
 
 	<ui:define name="conteudo">
@@ -107,56 +107,6 @@
 				ajax="false"
 				actionListener="#{livroBean.enviaObjeto(livroBean.livro)}" />
 
-		</h:form>
-
-
-
-		<h:form id="formTabelaLivros">
-			<p:dataTable value="#{livroBean.livros}" var="livro"
-				id="tabelaLivros" paginator="true" rows="5">
-				<f:facet name="header">Livros</f:facet>
-				<p:column headerText="Titulo" sortBy="#{livro.titulo}"
-					filterBy="#{livro.titulo}" filterMatchMode="contains">
-					<h:outputText value="#{livro.titulo}" />
-				</p:column>
-				<p:column headerText="ISBN" sortBy="#{livro.isbn}">
-
-					<h:outputText value="#{livro.isbn}" />
-				</p:column>
-				<p:column headerText="DATA" sortBy="#{livro.dataLancamento}">
-
-					<h:outputText value="#{livro.dataLancamento.time}">
-						<f:convertDateTime pattern="dd/MM/yyyy"
-							timeZone="America/Sao_Paulo" />
-					</h:outputText>
-				</p:column>
-
-				<p:column headerText="Alterar">
-
-					<h:commandLink value="alterar"
-						action="#{livroBean.carregar(livro)}" />
-				</p:column>
-
-				<p:column headerText="Remove">
-
-					<h:commandLink value="Remove" action="#{livroBean.remover(livro)}" />
-				</p:column>
-
-				<p:column headerText="Avaliar">
-
-					<h:commandLink value="Avaliação"
-						action="#{livroBean.enviaObjeto(livro)}" />
-				</p:column>
-
-				<p:column headerText="Download">
-
-					<p:commandLink value="Baixar" ajax="false" 
-						actionListener="#{descarregadorBean.descarregar(livro)}">
-						<p:fileDownload value="#{descarregadorBean.streamedContent}" />
-					</p:commandLink>
-				</p:column>
-
-			</p:dataTable>
 		</h:form>
 
 

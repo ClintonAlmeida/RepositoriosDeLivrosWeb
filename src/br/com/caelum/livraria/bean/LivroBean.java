@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.model.UploadedFile;
 
 import br.com.caelum.livraria.dao.DAO;
+import br.com.caelum.livraria.dao.LivroDao;
 import br.com.caelum.livraria.modelo.Arquivo;
 import br.com.caelum.livraria.modelo.Autor;
 import br.com.caelum.livraria.modelo.Livro;
@@ -129,6 +130,12 @@ public class LivroBean implements Serializable {
 	// Carrega um livro no update pela ID da classe livro
 	public void carregarLivroPelaId() {
 		this.livro = new DAO<Livro>(Livro.class).buscaPorId(this.livro.getId());
+	}
+	//Retorna a Media de avaliacoes(a soma total de avaliacoes / por quantidade de avaliacoes)
+	public Long retornaMedia(Livro livro) {
+		
+		LivroDao livroDao = new LivroDao();
+		return livroDao.retornaMediaAvaliacao(livro);
 	}
 
 	// Grava um autor na pagina livro.xhtml
