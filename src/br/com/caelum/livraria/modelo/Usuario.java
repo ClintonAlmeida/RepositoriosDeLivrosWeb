@@ -3,6 +3,8 @@ package br.com.caelum.livraria.modelo;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -18,9 +20,8 @@ public class Usuario implements Serializable {
 	private String email;
 	private String senha;
 	private String cpf;
-	private String perfil;
+	private Perfil perfil;
 	private boolean ativo = true;
-	
 
 	public boolean isAtivo() {
 		return ativo;
@@ -33,11 +34,11 @@ public class Usuario implements Serializable {
 	public String getNome() {
 		return nome;
 	}
-	
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -46,15 +47,13 @@ public class Usuario implements Serializable {
 		this.email = email;
 	}
 
-		public Integer getId() {
+	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	
 
 	public String getCpf() {
 		return cpf;
@@ -71,13 +70,13 @@ public class Usuario implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
-	
-	public String getPerfil() {
+
+	@Enumerated(EnumType.STRING)
+	public Perfil getPerfil() {
 		return perfil;
 	}
 
-	public void setPerfil(String perfil) {
+	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
 	}
 
