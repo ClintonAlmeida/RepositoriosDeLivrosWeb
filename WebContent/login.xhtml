@@ -17,33 +17,53 @@
 
 		<p:messages globalOnly="true" />
 
-		
-			<h:form id="login" >
-				<p:fieldset legend="Login">
 
+		<h:form id="login">
+			<p:fieldset legend="Login">
+
+
+				<h:panelGrid columns="3">
+
+					<p:outputLabel value="Email:" for="email" />
+					<p:inputText id="email" value="#{loginBean.usuario.email}"
+						required="true">
+						<f:passThroughAttribute name="type" value="email" />
+					</p:inputText>
+					<p:message for="email" id="messageEmail" />
+
+					<p:outputLabel value="Senha:" for="senha" />
+					<p:password id="senha" value="#{loginBean.usuario.senha}"
+						feedback="true" promptLabel="Digite sua Senha" weakLabel="Fraca"
+						goodLabel="Bom" strongLabel="Forte" />
+				
+
+
+
+					<br />
+
+
+					<p:message for="senha" id="messageSenha" />
+
+					<h:panelGrid columns="2" style="position:relative; right: 15%">
+						<p:commandLink value="Criar cadastro"
+							action="#{usuarioBean.formUsuario}" immediate="true" />
+
+
+						<p:commandLink value="Esqueci a senha"
+							action="#{usuarioBean.formReenviarSenha}" immediate="true" />
+
+					</h:panelGrid>
+
+				</h:panelGrid>
 
 					<h:panelGrid columns="3">
-
-						<p:outputLabel value="Email:" for="email" />
-						<p:inputText id="email" value="#{loginBean.usuario.email}"
-							required="true">
-							<f:passThroughAttribute name="type" value="email" />
-						</p:inputText>
-						<p:message for="email" id="messageEmail" />
-
-						<p:outputLabel value="Senha:" for="senha" />
-						<p:password id="senha" value="#{loginBean.usuario.senha}"
-							feedback="true" promptLabel="Digite sua Senha" weakLabel="Fraca"
-							goodLabel="Bom" strongLabel="Forte" />
-
-
-						<p:message for="senha" id="messageSenha" />
-
-						<p:commandButton value="Efetue Login"
+						<p:commandButton value="Efetue Login" style="float: left"
 							action="#{loginBean.efetuaLogin}" update="@form" process="@form" />
 					</h:panelGrid>
-				</p:fieldset>
-			</h:form>
+
+
+			</p:fieldset>
+		</h:form>
 
 	</ui:define>
 

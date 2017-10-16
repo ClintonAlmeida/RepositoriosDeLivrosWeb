@@ -18,15 +18,15 @@
 
 
 	<ui:define name="titulo">
-                Lista de livros
+                Lista de livros 
         </ui:define>
 
 	<ui:define name="conteudo">
-		
 
-			<p:messages id="messages" />
 
-			
+		<p:messages id="messages" />
+
+
 
 		<h:form id="formTabelaLivros">
 			<p:dataTable value="#{livroBean.livros}" var="livro"
@@ -37,13 +37,9 @@
 					<h:outputText value="#{livro.titulo}" />
 				</p:column>
 
-				<!-- 
-				<p:column headerText="ISBN" sortBy="#{livro.isbn}">
-
-					<h:outputText value="#{livro.isbn}" />
-				</p:column>
-				 -->
-				<p:column headerText="Data de Lançamento" sortBy="#{livro.dataLancamento}">
+				 
+				<p:column headerText="Data de Lançamento"
+					sortBy="#{livro.dataLancamento}">
 
 					<h:outputText value="#{livro.dataLancamento.time}">
 						<f:convertDateTime pattern="dd/MM/yyyy"
@@ -54,16 +50,15 @@
 				<p:column headerText="Avaliações">
 
 
-					<p:rating value="#{livroBean.retornaMedia(livro)}"
-						readonly="true"></p:rating>
+					<p:rating value="#{livroBean.retornaMedia(livro)}" readonly="true"></p:rating>
 
 
 				</p:column>
 
-				
-				<p:column headerText="Alterar">
 
-					<h:commandLink value="alterar"
+				<p:column headerText="Alterar" >
+
+					<h:commandLink value="alterar" 
 						action="#{livroBean.carregar(livro)}" />
 				</p:column>
 
@@ -72,7 +67,7 @@
 					<h:commandLink value="Remove" action="#{livroBean.remover(livro)}" />
 				</p:column>
 
-				 <p:column headerText="Avaliar">
+				<p:column headerText="Avaliar">
 
 					<h:commandLink value="Avaliação"
 						action="#{livroBean.enviaObjeto(livro)}" />
@@ -80,12 +75,12 @@
 
 				<p:column headerText="Download">
 
-					<p:commandLink value="Baixar" ajax="false" 
+					<p:commandLink value="Baixar" ajax="false"
 						actionListener="#{descarregadorBean.descarregar(livro)}">
 						<p:fileDownload value="#{descarregadorBean.streamedContent}" />
 					</p:commandLink>
 				</p:column>
-				 
+
 
 			</p:dataTable>
 		</h:form>

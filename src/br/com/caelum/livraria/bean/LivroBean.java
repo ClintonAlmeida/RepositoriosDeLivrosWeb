@@ -153,6 +153,13 @@ public class LivroBean implements Serializable {
 
 				File file = new File(diretorioRaiz(), uploadedFile.getFileName());
 				DAO<Arquivo> daoArquivo = new DAO<Arquivo>(Arquivo.class);
+				
+				if(uploadedFile.getFileName().endsWith(".PNG") || uploadedFile.getFileName().endsWith(".png")) {
+					System.out.println("É UM ARQUIVO EM JPG");
+					
+					
+				}
+				
 
 				arquivo.setNomeArquivo(uploadedFile.getFileName());
 				arquivo.setCaminhoArquivo(diretorioRaiz());
@@ -307,5 +314,7 @@ public class LivroBean implements Serializable {
 		this.livro = (Livro) session.getAttribute("livroId");
 		this.usuario = (Usuario) session.getAttribute("usuario");
 	}
+	
+
 
 }

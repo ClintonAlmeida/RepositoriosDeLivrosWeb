@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -45,13 +47,13 @@ public class Livro implements Serializable {
 		this.avaliacao = avaliacao;
 	}
 	
-	@OneToOne(mappedBy="livro")
+	@OneToOne(mappedBy="livro", cascade = CascadeType.REMOVE)
 	private Arquivo arquivo;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Autor> autores = new ArrayList<Autor>();
 
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="livro")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="livro", cascade = CascadeType.REMOVE)
 	@Fetch(FetchMode.SUBSELECT)
 	
 	private List<Comentario> comentarios = new ArrayList<Comentario>();

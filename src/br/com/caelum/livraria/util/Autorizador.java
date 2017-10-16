@@ -33,17 +33,20 @@ public class Autorizador implements PhaseListener {
 		if ("/login.xhtml".equals(nomePagina)) {
 			return;
 		}
-
-		
+		if ("/reenviarSenha.xhtml".equals(nomePagina)) {
+			return;
+		}
 		if ("/usuario.xhtml".equals(nomePagina)) {
 			return;
 		}
 
-		// Pega o usuario atual que est� logado no sistema e atribui uma id para o mesmo
+		// Pega o usuario atual que est� logado no sistema e atribui uma id para o
+		// mesmo
 		// com o valor usuarioLogado
 		Usuario usuarioLogado = (Usuario) context.getExternalContext().getSessionMap().get("usuarioLogado");
 
-		// Se a id="usuarioLogado" n�o tiver nenhum valor significa que n�o tem ninguem
+		// Se a id="usuarioLogado" n�o tiver nenhum valor significa que n�o tem
+		// ninguem
 		// logado na pagina
 		if (usuarioLogado != null) {
 			return;
@@ -56,8 +59,6 @@ public class Autorizador implements PhaseListener {
 		handler.handleNavigation(context, null, "/login?faces-redirect=true");
 		context.renderResponse();
 	}
-	
-	
 
 	@Override
 	public void beforePhase(PhaseEvent event) {

@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -57,7 +58,7 @@ public class UsuarioBean {
 	public void inicializar() {
 
 		this.perfis = Arrays.asList(Perfil.values());
-		
+
 	}
 
 	public void gravar() {
@@ -74,6 +75,7 @@ public class UsuarioBean {
 
 		// Se o id for nulo e o email não está no sistema ele grava o usuario
 		if (this.usuario.getId() == null && existe == false) {
+
 			new DAO<Usuario>(Usuario.class).adiciona(this.usuario);
 			System.out.println(this.usuario + "Foi cadastrado");
 			// this.enviar.sendMail("repositoriodelivrosdigitais@gmail.com",
@@ -88,6 +90,49 @@ public class UsuarioBean {
 
 		}
 		this.usuario = new Usuario();
+	}
+
+	public void recebeObjetoUsuario() {
+
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+				.getRequest();
+		HttpSession session = (HttpSession) request.getSession();
+		this.usuario = (Usuario) session.getAttribute("usuario");
+	}
+
+	public String formUsuario() {
+
+		return "usuario?faces-redirect=true";
+	}
+	
+	public String formReenviarSenha() {
+
+		return "reenviarSenha?faces-redirect=true";
+	}
+
+	public void redefinirSenha(String email) {
+
+		try {
+
+			Usuario usuario = new Usuario();
+			usuario.setEmail(email);
+			UsuarioDao usuarioDao = new UsuarioDao();
+
+			Usuario user = usuarioDao.retornaUsuario(usuario);
+			this.enviar.sendMail("repositoriodelivrosdigitais@gmail.com", email, "SENHA DE ACESSO",
+					"Olá, " + "\n" + "Segue abaixo os dados para " + "acesso ao sistema: " + "\n" + "e-mail: "
+							+ user.getEmail() + "\n" + "senha: " + user.getSenha());
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Senha enviada para o e-mail: " + email, ""));
+
+			
+
+		} catch (NoResultException e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Endereço de e-mail não encontrado", ""));
+			
+		}
+
 	}
 
 }

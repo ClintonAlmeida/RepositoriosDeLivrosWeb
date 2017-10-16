@@ -26,7 +26,7 @@ public class Usuario implements Serializable {
 	public boolean isAtivo() {
 		return ativo;
 	}
-
+	
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
@@ -40,10 +40,13 @@ public class Usuario implements Serializable {
 	}
 
 	public String getEmail() {
+		
 		return email;
 	}
 
 	public void setEmail(String email) {
+		
+		email = email.toLowerCase();
 		this.email = email;
 	}
 
