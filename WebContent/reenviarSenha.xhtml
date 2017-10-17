@@ -25,7 +25,7 @@
 				<h:panelGrid columns="3">
 
 					<p:outputLabel value="E-mail:" for="email" />
-					<p:inputText id="email" value="#{usuarioBean.usuario.email}"
+					<p:inputText id="email" value="#{configUsuarioBean.usuario.email}"
 						required="true" requiredMessage="Digite um e-mail">
 						<f:passThroughAttribute name="type" value="email" />
 
@@ -33,7 +33,7 @@
 
 					<br />
 					<p:commandButton value="Enviar"
-						action="#{usuarioBean.redefinirSenha(usuarioBean.usuario.email)}"
+						action="#{configUsuarioBean.redefinirSenha(configUsuarioBean.usuario.email)}"
 						update="@form " process="@form" />
 				</h:panelGrid>
 			</p:fieldset>
