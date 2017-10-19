@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<!-- teste -->
+<ui:composition template="_template.xhtml">
+
+	<f:metadata>
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{configUsuarioBean.recebeObjeto}" />
+		</f:metadata>
+	</f:metadata>
+
+	<ui:define name="titulo">
+		<p:outputLabel>Redefinir Senha</p:outputLabel>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="autor">
+			<p:fieldset legend="Redefinição">
+
+				<h:panelGrid columns="3">
+
+					<p:outputLabel value="Senha atual: " for="senhaAtual" />
+					<p:password id="senhaAtual" value="#{configUsuarioBean.novaSenha}"
+						required="true" requiredMessage="Digite sua senha atual"
+						placeholder="Senha Atual" validator="#{configUsuarioBean.comparaSenhaInicial}">
+						<f:passThroughAttribute name="type" value="asd" />
+						<f:ajax event="blur" render="messages"/>
+
+					</p:password>
+					<br/>
+					<br/>
+					<br/>
+
+					<p:outputLabel value="Nova senha" for="novaSenha" />
+					<p:inputText id="novaSenha" value="#{configUsuarioBean.novaSenha}"
+						required="false" requiredMessage="Digite a nova senha" 
+						placeholder="Nova senha">
+						<f:passThroughAttribute name="type" value="novaSenha" />
+
+					</p:inputText>
+					
+					<br/>
+					<br/>
+					<br/>
+					
+					<p:outputLabel value="Confirme a nova senha" for="confirmaSenha" />
+					<p:inputText id="confirmaSenha" value="#{configUsuarioBean.confirmaSenha}"
+						required="false" requiredMessage="Confirmação de senha"
+						placeholder="Confirmação de senha" > 
+						<f:passThroughAttribute name="type" value="confirmaSenha" />
+
+					</p:inputText>
+
+					<br />
+					<p:commandButton value="Enviar"
+						action="#{configUsuarioBean.redefinirSenha(configUsuarioBean.novaSenha)}"
+						update="@form" process="@form" />
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

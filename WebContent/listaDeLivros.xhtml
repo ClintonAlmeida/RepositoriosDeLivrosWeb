@@ -25,8 +25,10 @@
 
 
 		<p:messages id="messages" />
-
-
+		<h:form>
+			<h:commandLink value="Redefinir senha"
+				action="#{configUsuarioBean.formAlterarSenha}"></h:commandLink>
+		</h:form>
 
 		<h:form id="formTabelaLivros">
 			<p:dataTable value="#{livroBean.livros}" var="livro"
@@ -37,7 +39,7 @@
 					<h:outputText value="#{livro.titulo}" />
 				</p:column>
 
-				 
+
 				<p:column headerText="Data de Lançamento"
 					sortBy="#{livro.dataLancamento}">
 
@@ -55,7 +57,7 @@
 
 				</p:column>
 
-
+				<!-- 
 				<p:column headerText="Alterar" >
 
 					<h:commandLink value="alterar" 
@@ -66,11 +68,13 @@
 
 					<h:commandLink value="Remove" action="#{livroBean.remover(livro)}" />
 				</p:column>
+ -->
 
 				<p:column headerText="Avaliar">
 
 					<h:commandLink value="Avaliação"
-						action="#{livroBean.enviaObjeto(livro)}" />
+						action="#{livroBean.enviaObjeto(livro)}"
+						actionListener="#{livroBean.enviaObjeto(livro)}" />
 				</p:column>
 
 				<p:column headerText="Download">

@@ -218,12 +218,16 @@ public class LivroBean implements Serializable {
 			this.livro = new Livro();
 		}
 
-		return this.formPainelDeLivros();
+		return "listaDeLivros?faces-redirect=true";
 
 	}
 
 	private String diretorioRaiz() {
 
+		File file = new File("Repositorio de Livros Web");
+		
+		file.mkdir();
+		
 		return "C:\\Ha";
 	}
 

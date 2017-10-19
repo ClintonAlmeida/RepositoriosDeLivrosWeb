@@ -61,7 +61,7 @@ public class UsuarioBean {
 
 	}
 
-	public void gravar() {
+	public String gravar() {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		boolean existe = new UsuarioDao().existeEmail(this.usuario);// se o e-mail existir no sistema o valor é true
@@ -90,6 +90,8 @@ public class UsuarioBean {
 
 		}
 		this.usuario = new Usuario();
+		
+		return "login?faces-redirect=true";
 	}
 
 	public void recebeObjetoUsuario() {

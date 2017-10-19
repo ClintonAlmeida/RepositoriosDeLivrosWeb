@@ -28,6 +28,8 @@ public class LoginBean {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
 		session.setAttribute("usuario", usuario);
+		System.out.println("**********************************************************************");
+		System.out.println(this.usuario.getEmail());
 
 	}
 
@@ -42,7 +44,9 @@ public class LoginBean {
 		boolean existe = new UsuarioDao().existe(this.usuario);
 
 		this.enviaObjeto(this.usuario);
-
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println(this.usuario.getEmail());
+		
 		// Se o usuario estiver logado no sistema ele é redirecionado para a pagina de
 		// livros
 		if (existe) {

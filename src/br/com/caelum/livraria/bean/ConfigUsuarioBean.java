@@ -3,47 +3,119 @@ package br.com.caelum.livraria.bean;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import br.com.caelum.livraria.dao.UsuarioDao;
+import br.com.caelum.livraria.modelo.Livro;
 import br.com.caelum.livraria.modelo.Usuario;
-
 
 @ManagedBean
 @ViewScoped
 public class ConfigUsuarioBean {
-	
+
 	SendMail enviar = new SendMail();
 	private Usuario usuario = new Usuario();
+	private String senhaAtual;
+	private String novaSenha;
+	private String confirmaSenha;
+
 	
 	
+	public String getSenhaAtual() {
+		return senhaAtual;
+	}
+
+	public void setSenhaAtual(String senhaAtual) {
+		this.senhaAtual = senhaAtual;
+	}
+
+	public String getNovaSenha() {
+		return novaSenha;
+	}
+
+	public void setNovaSenha(String novaSenha) {
+		this.novaSenha = novaSenha;
+	}
+
+	public String getConfirmaSenha() {
+		return confirmaSenha;
+	}
+
+	public void setConfirmaSenha(String confirmaSenha) {
+		this.confirmaSenha = confirmaSenha;
+	}
 
 	public SendMail getEnviar() {
 		return enviar;
 	}
 
-
-
 	public void setEnviar(SendMail enviar) {
 		this.enviar = enviar;
 	}
-
-
 
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
-
-
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
+	public String redefinirSenha(String senhaAtual) {
 
+		// this.recebeObjeto();
+		System.out.println("-----------------------------------------------------");
 
-	public void redefinirSenha(String email) {
+		recebeUsuario();
+		System.out.println(this.usuario.getNome());
+
+		if (this.usuario.getSenha().equals(senhaAtual)) {
+			System.out.println("Senhas são iguais");
+			this.comparaNovaSenha();
+		} else {
+			System.out.println("Senhas diferentes");
+		}
+		
+		return "listaDeLivros?faces-redirect=true";
+
+	}
+	
+	public void comparaNovaSenha(){
+
+		recebeUsuario();
+
+		// Verifica se o o que foi digitado começa com um
+		if (!this.novaSenha.equals(confirmaSenha)) {
+			// Informa que o ISBN deve começar com um
+			throw new ValidatorException(new FacesMessage("As senhas não são iguais"));
+		}
+
+	}
+
+	public void comparaSenhaInicial(FacesContext fc, UIComponent component, String senhaAtual)
+			throws ValidatorException {
+
+		recebeUsuario();
+
+		// Verifica se o o que foi digitado começa com um
+		if (!this.usuario.getSenha().equals(senhaAtual)) {
+			// Informa que o ISBN deve começar com um
+			throw new ValidatorException(new FacesMessage("Senha invalida"));
+		}
+
+	}
+
+	public void recebeUsuario() {
+		UsuarioDao usuarioDao = new UsuarioDao();
+		this.usuario = usuarioDao.retornaUsuario(usuario);
+	}
+
+	public void reenviarSenha(String email) {
 
 		try {
 
@@ -64,6 +136,19 @@ public class ConfigUsuarioBean {
 
 		}
 
+	}
+
+	public void recebeObjeto() {
+
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+				.getRequest();
+		HttpSession session = (HttpSession) request.getSession();
+		this.usuario = (Usuario) session.getAttribute("usuario");
+	}
+
+	public String formAlterarSenha() {
+
+		return "alterarSenha?faces-redirect=true";
 	}
 
 }
