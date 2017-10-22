@@ -40,6 +40,10 @@ public class DescarregadorBean {
 
 	public void descarregar(Livro livro) throws IOException {
 
+		LivroBean livroBean = new LivroBean();
+		
+		
+		
 		arquivo.setId(livro.getArquivo().getId());
 		Arquivo arquivo2 = new DAO<Arquivo>(Arquivo.class).buscaPorId(arquivo.getId());
 
@@ -48,7 +52,7 @@ public class DescarregadorBean {
 
 		// Abaixo temos um código estático, mas
 		// obviamente você pode buscar o arquivo de onde quiser :)
-		InputStream in = new FileInputStream(new File("C:\\Ha\\" + arquivo2.getNomeArquivo()));
+		InputStream in = new FileInputStream(new File(livroBean.diretorioRaiz()+ "\\" + arquivo2.getNomeArquivo()));
 		streamedContent = new DefaultStreamedContent(in, "image/PNG", arquivo2.getNomeArquivo());
 	}
 

@@ -24,8 +24,6 @@ public class ConfigUsuarioBean {
 	private String novaSenha;
 	private String confirmaSenha;
 
-	
-	
 	public String getSenhaAtual() {
 		return senhaAtual;
 	}
@@ -66,32 +64,29 @@ public class ConfigUsuarioBean {
 		this.usuario = usuario;
 	}
 
-	public String redefinirSenha(String senhaAtual) {
-
-		// this.recebeObjeto();
-		System.out.println("-----------------------------------------------------");
-
-		recebeUsuario();
-		System.out.println(this.usuario.getNome());
-
-		if (this.usuario.getSenha().equals(senhaAtual)) {
-			System.out.println("Senhas são iguais");
-			this.comparaNovaSenha();
-		} else {
-			System.out.println("Senhas diferentes");
-		}
-		
-		return "listaDeLivros?faces-redirect=true";
-
-	}
-	
-	public void comparaNovaSenha(){
+	public void redefinirSenha(FacesContext fc, UIComponent component, String senhaAtual)
+			throws ValidatorException {
 
 		recebeUsuario();
 
 		// Verifica se o o que foi digitado começa com um
-		if (!this.novaSenha.equals(confirmaSenha)) {
+		if (!this.usuario.getSenha().equals(senhaAtual)) {
 			// Informa que o ISBN deve começar com um
+			throw new ValidatorException(new FacesMessage("Senha invalida"));
+		}
+
+	}
+
+	public void comparaNovaSenha() {
+
+		System.out.println("Nova Senha: " + this.novaSenha);
+		System.out.println("Confirmação de senha " + this.confirmaSenha);
+		
+		// Verifica se o o que foi digitado começa com um
+		if (!this.novaSenha.equals(confirmaSenha)) {
+			System.out.println("Chamou a função");
+			// Informa que o ISBN deve começar com um
+			System.out.println("SEnhas não conferem");
 			throw new ValidatorException(new FacesMessage("As senhas não são iguais"));
 		}
 
@@ -111,6 +106,8 @@ public class ConfigUsuarioBean {
 	}
 
 	public void recebeUsuario() {
+		
+		recebeObjeto();
 		UsuarioDao usuarioDao = new UsuarioDao();
 		this.usuario = usuarioDao.retornaUsuario(usuario);
 	}

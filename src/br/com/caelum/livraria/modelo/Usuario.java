@@ -1,12 +1,20 @@
 package br.com.caelum.livraria.modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Usuario implements Serializable {
@@ -22,6 +30,19 @@ public class Usuario implements Serializable {
 	private String cpf;
 	private Perfil perfil;
 	private boolean ativo = true;
+	
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="usuario", cascade = {CascadeType.REMOVE})
+	@Fetch(FetchMode.SUBSELECT)	
+	private List<Livro> livros = new ArrayList<Livro>();
+
+	public List<Livro> getLivros() {
+		return livros;
+	}
+
+	public void setLivros(List<Livro> livros) {
+		this.livros = livros;
+	}
 
 	public boolean isAtivo() {
 		return ativo;

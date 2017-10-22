@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -20,9 +21,11 @@ import org.primefaces.model.UploadedFile;
 
 import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.dao.LivroDao;
+import br.com.caelum.livraria.dao.UsuarioDao;
 import br.com.caelum.livraria.modelo.Arquivo;
 import br.com.caelum.livraria.modelo.Autor;
 import br.com.caelum.livraria.modelo.Livro;
+import br.com.caelum.livraria.modelo.Perfil;
 import br.com.caelum.livraria.modelo.Usuario;
 
 @ManagedBean
@@ -36,7 +39,15 @@ public class LivroBean implements Serializable {
 	private Usuario usuario = new Usuario();
 	private UploadedFile uploadedFile = null;
 	private Arquivo arquivo = new Arquivo();
-	private Livro livroTemp = new Livro();
+	private Livro livroPorUsuario = new Livro();
+
+	public List<Livro> getLivroPorUsuario() {
+		return listaDeLivrosPorUsuario();
+	}
+
+	public void setLivroPorUsuario(Livro livroPorUsuario) {
+		this.livroPorUsuario = livroPorUsuario;
+	}
 
 	public Arquivo getArquivo() {
 		return arquivo;
@@ -44,10 +55,6 @@ public class LivroBean implements Serializable {
 
 	public void setArquivo(Arquivo arquivo) {
 		this.arquivo = arquivo;
-	}
-
-	public Livro getLivroTemp() {
-		return livroTemp;
 	}
 
 	public boolean existeLivro(Livro livro) {
@@ -59,10 +66,6 @@ public class LivroBean implements Serializable {
 			return true;
 		}
 
-	}
-
-	public void setLivroTemp(Livro livroTemp) {
-		this.livroTemp = livroTemp;
 	}
 
 	public UploadedFile getUploadedFile() {
@@ -121,6 +124,7 @@ public class LivroBean implements Serializable {
 
 	// Retorna o metodo acima, retornando apenas os autores
 	// O metodo abaixo fez um desaclopamento
+
 	public List<Autor> getAutoresDoLivro() {
 		return this.livro.getAutores();
 	}
@@ -131,9 +135,11 @@ public class LivroBean implements Serializable {
 	public void carregarLivroPelaId() {
 		this.livro = new DAO<Livro>(Livro.class).buscaPorId(this.livro.getId());
 	}
-	//Retorna a Media de avaliacoes(a soma total de avaliacoes / por quantidade de avaliacoes)
+
+	// Retorna a Media de avaliacoes(a soma total de avaliacoes / por quantidade de
+	// avaliacoes)
 	public Long retornaMedia(Livro livro) {
-		
+
 		LivroDao livroDao = new LivroDao();
 		return livroDao.retornaMediaAvaliacao(livro);
 	}
@@ -147,44 +153,46 @@ public class LivroBean implements Serializable {
 
 	public void upload() {
 
-		if (uploadedFile != null) {
+		System.out.println(
+				"************************************************************************************************");
+		try {
 
-			try {
+			File file = new File(diretorioRaiz(), uploadedFile.getFileName());
+			DAO<Arquivo> daoArquivo = new DAO<Arquivo>(Arquivo.class);
 
-				File file = new File(diretorioRaiz(), uploadedFile.getFileName());
-				DAO<Arquivo> daoArquivo = new DAO<Arquivo>(Arquivo.class);
-				
-				if(uploadedFile.getFileName().endsWith(".PNG") || uploadedFile.getFileName().endsWith(".png")) {
-					System.out.println("É UM ARQUIVO EM JPG");
-					
-					
-				}
-				
-
-				arquivo.setNomeArquivo(uploadedFile.getFileName());
-				arquivo.setCaminhoArquivo(diretorioRaiz());
-				arquivo.setTamanhoArquivo(uploadedFile.getSize());
-				arquivo.setLivro(livro);
-
-				arquivo.setLivro(livro);
-				System.out.println("Id do livro " + this.livro.getId());
-
-				daoArquivo.adiciona(arquivo);
-
-				OutputStream out = new FileOutputStream(file);
-				out.write(uploadedFile.getContents());
-				out.close();
-
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage("Upload completo", "O arquivo " + uploadedFile.getFileName() + " foi salvo!"));
-			} catch (IOException e) {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_WARN, "O arquivo não foi salvo", e.getMessage()));
+			if (uploadedFile.getFileName().endsWith(".PNG") || uploadedFile.getFileName().endsWith(".png")) {
+				System.out.println("É UM ARQUIVO EM JPG");
 			}
 
-		} else {
-			return;
+			arquivo.setNomeArquivo(uploadedFile.getFileName());
+			arquivo.setCaminhoArquivo(diretorioRaiz());
+			arquivo.setTamanhoArquivo(uploadedFile.getSize());
+			arquivo.setLivro(livro);
+
+			arquivo.setLivro(livro);
+			System.out.println("Id do livro " + this.livro.getId());
+
+			daoArquivo.adiciona(arquivo);
+
+			OutputStream out = new FileOutputStream(file);
+			out.write(uploadedFile.getContents());
+			out.close();
+
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Upload completo", "O arquivo " + uploadedFile.getFileName() + " foi salvo!"));
+		} catch (IOException e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "O arquivo não foi salvo", e.getMessage()));
 		}
+
+	}
+
+	public boolean isAutor() {
+
+		recebeUsuario();
+
+		return this.usuario.getPerfil().equals(Perfil.Autor);
+
 	}
 
 	// O metodo abaixo grava um livro no banco
@@ -204,8 +212,12 @@ public class LivroBean implements Serializable {
 
 		// Ao clicar no metodo gravar está condição é ativada, caso o livro já exista
 		// ele é atualizado, caso contrario ele é atualizadoasd
+		recebeUsuario();
+		this.livro.setUsuario(this.usuario);
 
 		if (this.livro.getId() == null) {
+
+			System.out.println(this.isAutor());
 
 			dao.adiciona(this.livro);
 
@@ -215,20 +227,31 @@ public class LivroBean implements Serializable {
 
 			livro.setArquivo(arquivo);
 			dao.atualiza(this.livro);
-			this.livro = new Livro();
+
 		}
 
 		return "listaDeLivros?faces-redirect=true";
 
 	}
 
-	private String diretorioRaiz() {
+	public List<Livro> listaDeLivrosPorUsuario() {
+
+		recebeUsuario();
+		LivroDao livroDao = new LivroDao();
+
+		return livroDao.retornaLivrosPorUsuario(this.usuario);
+
+	}
+
+	public String diretorioRaiz() {
 
 		File file = new File("Repositorio de Livros Web");
-		
+
 		file.mkdir();
-		
-		return "C:\\Ha";
+
+		System.out.println(file.toString());
+
+		return "C:\\" + file.toString();
 	}
 
 	// Remove um livro do banco de dados
@@ -249,6 +272,7 @@ public class LivroBean implements Serializable {
 	public void carregar(Livro livro) {
 		System.out.println("Carregando livro");
 		this.livro = livro;
+
 	}
 
 	// Está função é chamada quando se clica no cadastrar um autor.
@@ -262,6 +286,11 @@ public class LivroBean implements Serializable {
 		System.out.println("Chamanda do formulario do Autor.");
 		// O trecho abaixo te redireciona para a pagina de criação de autor
 		return "livroAtualizar?faces-redirect=true";
+	}
+
+	public String formListaDeLivros() {
+
+		return "listaDeLivros?faces-redirect=true";
 	}
 
 	// Está função é chamada quando se clica no cadastrar um autor.
@@ -310,6 +339,20 @@ public class LivroBean implements Serializable {
 		return "avaliacao?faces-redirect=true";
 	}
 
+	public String enviaLivroParaAtualizar(Livro livro) {
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
+		session.setAttribute("livroId", livro);
+		System.out.println("Livro é o  " + livro.getTitulo());
+		// System.out.println("********************************************************************************************************");
+		System.out.println("Nome da porra do arquivo " + livro.getArquivo().getNomeArquivo());
+		this.arquivo = livro.getArquivo();
+		System.out.println("Nome passado pelo arquivo" + this.arquivo.getNomeArquivo());
+
+		return "livroAtualizar?faces-redirect=true";
+	}
+
 	public void recebeObjeto() {
 
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
@@ -318,7 +361,11 @@ public class LivroBean implements Serializable {
 		this.livro = (Livro) session.getAttribute("livroId");
 		this.usuario = (Usuario) session.getAttribute("usuario");
 	}
-	
 
+	public void recebeUsuario() {
+		recebeObjeto();
+		UsuarioDao usuarioDao = new UsuarioDao();
+		this.usuario = usuarioDao.retornaUsuario(usuario);
+	}
 
 }

@@ -6,24 +6,25 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-	<h:head />
-	<h:body>
-		<div id="cabecalho">
-			<h:graphicImage library="img" name="logo.jpg" />
+<h:head />
+<h:body>
+	<div id="cabecalho">
+		<h:graphicImage library="img" name="logo.jpg" />
 
-			<!-- Menu de todas as paginas abaixo -->
-			
-			<p:growl id="growl" showDetail="true" autoUpdate="true" />
-			<h:form id="menu" rendered="#{usuarioLogado != null}" >
+		<!-- Menu de todas as paginas abaixo -->
+
+		<p:growl id="growl" showDetail="true" autoUpdate="true" />
+		<h:form id="menu" rendered="#{usuarioLogado != null}">
 			<p:growl id="messages" />
 
 			<p:menubar>
 				<p:submenu label="Arquivo" icon="ui-icon-document">
 					<p:submenu label="Novo" icon="ui-icon-contact">
-						<p:menuitem value="Livro" action="#{livroBean.formLivro}" />
+						<p:menuitem value="Livro"
+							action="#{livroBean.formLivro}" />
 						<p:menuitem value="Autor" action="#{livroBean.formAutor}" />
 						<p:menuitem value="Usuario" action="#{livroBean.formUsuario}" />
-						<p:menuitem value="Lista" action="#{livroBean.formPainelDeLivros}" />
+						<p:menuitem value="Lista" action="#{livroBean.formListaDeLivros}" />
 					</p:submenu>
 				</p:submenu>
 
@@ -44,8 +45,8 @@
 					</p:submenu>
 				</p:submenu>
 
-				
-			
+
+
 
 				<p:menuitem value="Quit" url="http://www.primefaces.org"
 					icon="ui-icon-close" />
@@ -60,16 +61,20 @@
 				</f:facet>
 			</p:menubar>
 		</h:form>
-			
-			<h1>
-				<ui:insert name="titulo"></ui:insert>
-			</h1>
-		</div>
-	
-		<div id="conteudo">
-			<ui:insert name="conteudo">
-			</ui:insert>
-		</div>
-	</h:body>
+
+		<h1>
+			<ui:insert name="titulo"></ui:insert>
+		</h1>
+	</div>
+
+	<div id="conteudo">
+		<ui:insert name="conteudo">
+			<h:outputText value="Acesso disponivel apenas para autores"
+				rendered="#{!livroBean.autor}" />
+
+
+		</ui:insert>
+	</div>
+</h:body>
 
 </html>

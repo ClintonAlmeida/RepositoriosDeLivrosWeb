@@ -3,7 +3,15 @@ package br.com.caelum.livraria.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import com.sun.faces.facelets.util.Path;
+
+import br.com.caelum.livraria.modelo.Livro;
+import br.com.caelum.livraria.modelo.Usuario;
 
 public class DAO<T> {
 
@@ -50,7 +58,9 @@ public class DAO<T> {
 		em.getTransaction().commit();
 		em.close();
 	}
+	
 
+	
 	public List<T> listaTodos() {
 		EntityManager em = new JPAUtil().getEntityManager();
 		CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(classe);

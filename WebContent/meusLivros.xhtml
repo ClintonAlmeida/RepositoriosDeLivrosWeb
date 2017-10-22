@@ -25,13 +25,11 @@
 
 
 		<p:messages id="messages" />
-		<h:form>
-			<h:commandLink value="Redefinir senha"
-				action="#{configUsuarioBean.formAlterarSenha}"></h:commandLink>
-		</h:form>
+		
+		
 
 		<h:form id="formTabelaLivros">
-			<p:dataTable value="#{livroBean.livros}" var="livro"
+			<p:dataTable value="#{livroBean.livroPorUsuario}" var="livro"
 				id="tabelaLivros" paginator="true" rows="10">
 				<f:facet name="header">Livros</f:facet>
 				<p:column headerText="Titulo" sortBy="#{livro.titulo}"
@@ -56,25 +54,20 @@
 
 
 				</p:column>
+				
+								
+				<p:column headerText="Alterar" >
 
+					<h:commandLink value="alterar" 
+						action="#{livroBean.enviaLivroParaAtualizar(livro)}" immediate="true" />
+				</p:column>
 
+				<p:column headerText="Remove">
+
+					<h:commandLink value="Remove" action="#{livroBean.remover(livro)}" />
+				</p:column>
  
-
-				<p:column headerText="Avaliar">
-
-					<h:commandLink value="Avaliação"
-						action="#{livroBean.enviaObjeto(livro)}"
-						actionListener="#{livroBean.enviaObjeto(livro)}" />
-				</p:column>
-
-				<p:column headerText="Download">
-
-					<p:commandLink value="Baixar" ajax="false"
-						actionListener="#{descarregadorBean.descarregar(livro)}">
-						<p:fileDownload value="#{descarregadorBean.streamedContent}" />
-					</p:commandLink>
-				</p:column>
-
+				
 
 			</p:dataTable>
 		</h:form>

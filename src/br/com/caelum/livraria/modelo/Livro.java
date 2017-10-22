@@ -11,7 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -46,31 +48,37 @@ public class Livro implements Serializable {
 	public void setAvaliacao(Integer avaliacao) {
 		this.avaliacao = avaliacao;
 	}
-	
-	@OneToOne(mappedBy="livro", cascade = CascadeType.REMOVE)
+
+	@OneToOne(mappedBy = "livro", cascade = CascadeType.REMOVE)
 	private Arquivo arquivo;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Autor> autores = new ArrayList<Autor>();
 
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="livro", cascade = CascadeType.REMOVE)
+	@ManyToOne
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "livro", cascade = CascadeType.REMOVE)
 	@Fetch(FetchMode.SUBSELECT)
-	
+
 	private List<Comentario> comentarios = new ArrayList<Comentario>();
 
-	
 	public void adicionaComentario(Comentario comentario) {
 		this.comentarios.add(comentario);
 	}
-	
-	
-	
+
 	public List<Comentario> getComentarios() {
 		return comentarios;
 	}
-	
-	
-	
 
 	public String getSinopse() {
 		return sinopse;
@@ -87,14 +95,10 @@ public class Livro implements Serializable {
 	public void adicionaAutor(Autor autor) {
 		this.autores.add(autor);
 	}
-	
-	
 
 	public Arquivo getArquivo() {
 		return arquivo;
 	}
-	
-	
 
 	public void setArquivo(Arquivo arquivo) {
 		this.arquivo = arquivo;

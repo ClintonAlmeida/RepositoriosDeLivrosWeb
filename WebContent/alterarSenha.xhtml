@@ -10,7 +10,8 @@
 
 	<f:metadata>
 		<f:metadata>
-			<f:event type="preRenderView" listener="#{configUsuarioBean.recebeObjeto}" />
+			<f:event type="preRenderView"
+				listener="#{configUsuarioBean.recebeObjeto}" />
 		</f:metadata>
 	</f:metadata>
 
@@ -27,39 +28,40 @@
 					<p:outputLabel value="Senha atual: " for="senhaAtual" />
 					<p:password id="senhaAtual" value="#{configUsuarioBean.novaSenha}"
 						required="true" requiredMessage="Digite sua senha atual"
-						placeholder="Senha Atual" validator="#{configUsuarioBean.comparaSenhaInicial}">
+						placeholder="Senha Atual"
+						validator="#{configUsuarioBean.comparaSenhaInicial}">
 						<f:passThroughAttribute name="type" value="asd" />
-						<f:ajax event="blur" render="messages"/>
+						<f:ajax event="blur" render="messages" />
 
 					</p:password>
-					<br/>
-					<br/>
-					<br/>
+					<br />
+					<br />
+					<br />
 
 					<p:outputLabel value="Nova senha" for="novaSenha" />
 					<p:inputText id="novaSenha" value="#{configUsuarioBean.novaSenha}"
-						required="false" requiredMessage="Digite a nova senha" 
+						required="true" requiredMessage="Digite a nova senha"
 						placeholder="Nova senha">
 						<f:passThroughAttribute name="type" value="novaSenha" />
 
 					</p:inputText>
-					
-					<br/>
-					<br/>
-					<br/>
-					
-					<p:outputLabel value="Confirme a nova senha" for="confirmaSenha" />
-					<p:inputText id="confirmaSenha" value="#{configUsuarioBean.confirmaSenha}"
-						required="false" requiredMessage="Confirmação de senha"
-						placeholder="Confirmação de senha" > 
-						<f:passThroughAttribute name="type" value="confirmaSenha" />
-
-					</p:inputText>
 
 					<br />
-					<p:commandButton value="Enviar"
-						action="#{configUsuarioBean.redefinirSenha(configUsuarioBean.novaSenha)}"
-						update="@form" process="@form" />
+					<br />
+					<br />
+
+					<p:outputLabel value="Confirme a senhal: " for="confirmaSenha" />
+					<p:password id="confirmaSenha" value="#{configUsuarioBean.confirmaSenha}"
+						required="true" requiredMessage="Digite sua senha "
+						placeholder="Senha Atual"
+						validator="#{configUsuarioBean.redefinirSenha}">
+						<f:passThroughAttribute name="type" value="asd" />
+						<f:ajax event="blur" render="messages" />
+
+					</p:password>
+
+					<br />
+					<p:commandButton value="Enviar" update="@form" process="@form" />
 				</h:panelGrid>
 			</p:fieldset>
 		</h:form>

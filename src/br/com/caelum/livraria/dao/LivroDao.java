@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 
 import br.com.caelum.livraria.modelo.Comentario;
 import br.com.caelum.livraria.modelo.Livro;
+import br.com.caelum.livraria.modelo.Usuario;
 
 public class LivroDao {
 
@@ -47,4 +48,22 @@ public class LivroDao {
 		
 		return media;
 	}
+	
+	public List<Livro> retornaLivrosPorUsuario(Usuario usuario) {
+
+		// Verifica se o email e senha do usuario existe no sistema
+		TypedQuery<Livro> query = em.createQuery("Select u FROM Livro u where usuario_id = :pId",
+				Livro.class);
+
+		query.setParameter("pId", usuario.getId());
+
+		List<Livro> livros = query.getResultList();
+
+		// Compara se existe o e-mail cadastrado na base de dados do sistema
+
+		em.close();
+
+		return livros;
+	}
+
 }
