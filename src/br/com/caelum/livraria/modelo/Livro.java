@@ -19,7 +19,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -39,7 +38,9 @@ public class Livro implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Calendar dataLancamento = Calendar.getInstance();
 	private Integer avaliacao;
-
+	
+	
+	
 	public Integer getAvaliacao() {
 
 		return avaliacao;
@@ -49,10 +50,10 @@ public class Livro implements Serializable {
 		this.avaliacao = avaliacao;
 	}
 
-	@OneToOne(mappedBy = "livro", cascade = CascadeType.REMOVE)
+	@OneToOne(mappedBy = "livro", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.MERGE})
 	private Arquivo arquivo;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.DETACH})
 	private List<Autor> autores = new ArrayList<Autor>();
 
 	@ManyToOne

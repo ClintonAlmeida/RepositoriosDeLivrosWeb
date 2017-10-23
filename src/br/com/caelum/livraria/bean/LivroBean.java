@@ -7,7 +7,6 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -153,8 +152,8 @@ public class LivroBean implements Serializable {
 
 	public void upload() {
 
-		System.out.println(
-				"************************************************************************************************");
+		recebeObjeto();
+
 		try {
 
 			File file = new File(diretorioRaiz(), uploadedFile.getFileName());
@@ -167,12 +166,23 @@ public class LivroBean implements Serializable {
 			arquivo.setNomeArquivo(uploadedFile.getFileName());
 			arquivo.setCaminhoArquivo(diretorioRaiz());
 			arquivo.setTamanhoArquivo(uploadedFile.getSize());
-			arquivo.setLivro(livro);
+			System.out.println("++++++++++++++++++++++++++++++" + arquivo.getNomeArquivo());
+			DAO<Livro> dao = new DAO<Livro>(Livro.class);
 
-			arquivo.setLivro(livro);
-			System.out.println("Id do livro " + this.livro.getId());
+			if (this.livro.getArquivo() == null) {
 
-			daoArquivo.adiciona(arquivo);
+				arquivo.setLivro(livro);
+				System.out.println("Id do livro " + this.livro.getId());
+				daoArquivo.adiciona(arquivo);
+
+			} else {
+
+				arquivo.setId(this.livro.getArquivo().getId());
+				arquivo.setLivro(this.livro);
+				this.livro.setArquivo(arquivo);
+				daoArquivo.atualiza(arquivo);
+
+			}
 
 			OutputStream out = new FileOutputStream(file);
 			out.write(uploadedFile.getContents());
@@ -200,7 +210,6 @@ public class LivroBean implements Serializable {
 
 		System.out.println("Gravando livro " + this.livro.getTitulo());
 		DAO<Livro> dao = new DAO<Livro>(Livro.class);
-		System.out.println("Nome do novo arquivo " + arquivo.getNomeArquivo());
 
 		// O metodo abaixo verifica se o livro possui um autor, caso não possua ele não
 		// permite a gravação
@@ -216,16 +225,13 @@ public class LivroBean implements Serializable {
 		this.livro.setUsuario(this.usuario);
 
 		if (this.livro.getId() == null) {
-
-			System.out.println(this.isAutor());
-
 			dao.adiciona(this.livro);
 
 			return this.formLivroAtualizar();
 
 		} else {
 
-			livro.setArquivo(arquivo);
+			// livro.setArquivo(arquivo);
 			dao.atualiza(this.livro);
 
 		}
@@ -259,7 +265,7 @@ public class LivroBean implements Serializable {
 		System.out.println("Removendo livro");
 		DAO<Livro> dao = new DAO<Livro>(Livro.class);
 		dao.remove(livro);
-		this.livros = dao.listaTodos();
+		// this.livros = dao.listaTodos();
 	}
 
 	// Remove um autor do livro na pagina livro.xhtml
@@ -276,6 +282,13 @@ public class LivroBean implements Serializable {
 	}
 
 	// Está função é chamada quando se clica no cadastrar um autor.
+	
+	public String formMeusLivros() {
+		System.out.println("Chamanda do formulario do Autor.");
+		// O trecho abaixo te redireciona para a pagina de criação de autor
+		return "meusLivros?faces-redirect=true";
+	}
+	
 	public String formAutor() {
 		System.out.println("Chamanda do formulario do Autor.");
 		// O trecho abaixo te redireciona para a pagina de criação de autor
@@ -344,11 +357,6 @@ public class LivroBean implements Serializable {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
 		session.setAttribute("livroId", livro);
-		System.out.println("Livro é o  " + livro.getTitulo());
-		// System.out.println("********************************************************************************************************");
-		System.out.println("Nome da porra do arquivo " + livro.getArquivo().getNomeArquivo());
-		this.arquivo = livro.getArquivo();
-		System.out.println("Nome passado pelo arquivo" + this.arquivo.getNomeArquivo());
 
 		return "livroAtualizar?faces-redirect=true";
 	}

@@ -20,6 +20,8 @@ public class DAO<T> {
 	public DAO(Class<T> classe) {
 		this.classe = classe;
 	}
+	
+	public EntityManager em = new JPAUtil().getEntityManager();
 
 	public void adiciona(T t) {
 
@@ -59,6 +61,16 @@ public class DAO<T> {
 		em.close();
 	}
 	
+	public void atualizaArquivo(T t) {
+		EntityManager em = new JPAUtil().getEntityManager();
+		em.getTransaction().begin();
+
+		
+		em.merge(t);
+
+		em.getTransaction().commit();
+		em.close();
+	}
 
 	
 	public List<T> listaTodos() {

@@ -32,7 +32,7 @@ public class Usuario implements Serializable {
 	private boolean ativo = true;
 	
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="usuario", cascade = {CascadeType.REMOVE})
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="usuario", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.MERGE})
 	@Fetch(FetchMode.SUBSELECT)	
 	private List<Livro> livros = new ArrayList<Livro>();
 
