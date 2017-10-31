@@ -249,15 +249,21 @@ public class LivroBean implements Serializable {
 
 	}
 
-	public String diretorioRaiz() {
+	public String diretorioRaiz() throws IOException {
 
-		File file = new File("Repositorio de Livros Web");
+		File file = new File( new File("/").getCanonicalPath() + "Repositorio de Livros Web");
 
-		file.mkdir();
+		if(file.exists()) {
+			System.out.println("Pasta Existe");
+		}else {
+			System.out.println("Criando pasta");
+			file.mkdir();
+		}
+		
 
-		System.out.println(file.toString());
+		
 
-		return "C:\\" + file.toString();
+		return file.toString();
 	}
 
 	// Remove um livro do banco de dados

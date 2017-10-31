@@ -20,28 +20,24 @@
 			<p:menubar>
 				<p:submenu label="Arquivo" icon="ui-icon-document">
 					<p:submenu label="Novo" icon="ui-icon-contact">
-						<p:menuitem value="Livro"
-							action="#{livroBean.formLivro}" />
+						<p:menuitem value="Livro" action="#{livroBean.formLivro}" />
 						<p:menuitem value="Autor" action="#{livroBean.formAutor}" />
 						<p:menuitem value="Usuario" action="#{livroBean.formUsuario}" />
 						<p:menuitem value="Lista" action="#{livroBean.formListaDeLivros}" />
-						<p:menuitem value="Meus Livros" action="#{livroBean.formMeusLivros}" />
+
 					</p:submenu>
 				</p:submenu>
 
-				<p:submenu label="Edit" icon="fa fa-fw fa-edit">
-					<p:menuitem value="Undo" url="#"
-						icon="ui-icon-arrowreturnthick-1-w" />
-					<p:menuitem value="Redo" url="#"
-						icon="ui-icon-arrowreturnthick-1-e" />
+				<p:submenu label="Editar" icon="fa fa-fw fa-edit">
+					<p:menuitem value="Meus Livros"
+						action="#{livroBean.formMeusLivros}" />
+
 				</p:submenu>
 
-				<p:submenu label="Help" icon="ui-icon-help">
+				<p:submenu label="Ajuda" icon="ui-icon-help">
 					<p:menuitem value="Contents" url="#" />
 					<p:submenu label="Search" icon="ui-icon-search">
-						<p:submenu label="Text">
-							<p:menuitem value="Workspace" url="#" />
-						</p:submenu>
+						
 						<p:menuitem value="File" url="#" />
 					</p:submenu>
 				</p:submenu>
@@ -49,8 +45,7 @@
 
 
 
-				<p:menuitem value="Quit" url="http://www.primefaces.org"
-					icon="ui-icon-close" />
+
 
 				<f:facet name="options">
 
