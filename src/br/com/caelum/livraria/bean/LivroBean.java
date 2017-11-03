@@ -251,17 +251,14 @@ public class LivroBean implements Serializable {
 
 	public String diretorioRaiz() throws IOException {
 
-		File file = new File( new File("/").getCanonicalPath() + "Repositorio de Livros Web");
+		File file = new File(new File("/").getCanonicalPath() + "Repositorio de Livros Web");
 
-		if(file.exists()) {
+		if (file.exists()) {
 			System.out.println("Pasta Existe");
-		}else {
+		} else {
 			System.out.println("Criando pasta");
 			file.mkdir();
 		}
-		
-
-		
 
 		return file.toString();
 	}
@@ -288,13 +285,13 @@ public class LivroBean implements Serializable {
 	}
 
 	// Está função é chamada quando se clica no cadastrar um autor.
-	
+
 	public String formMeusLivros() {
 		System.out.println("Chamanda do formulario do Autor.");
 		// O trecho abaixo te redireciona para a pagina de criação de autor
 		return "meusLivros?faces-redirect=true";
 	}
-	
+
 	public String formAutor() {
 		System.out.println("Chamanda do formulario do Autor.");
 		// O trecho abaixo te redireciona para a pagina de criação de autor

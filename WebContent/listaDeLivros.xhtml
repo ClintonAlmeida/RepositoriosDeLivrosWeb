@@ -55,14 +55,19 @@
 				</p:column>
 
 
-
-
 				<p:column headerText="Avaliar">
 
 					<h:commandLink value="Avaliação"
 						action="#{livroBean.enviaObjeto(livro)}"
 						actionListener="#{livroBean.enviaObjeto(livro)}" />
 				</p:column>
+
+				<p:column headerText="Quantidade de Downloads">
+
+					<h:outputText value="#{livro.qtdDownload}">
+					</h:outputText>
+				</p:column>
+
 
 				<p:column headerText="Download">
 

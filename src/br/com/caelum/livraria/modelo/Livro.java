@@ -38,11 +38,18 @@ public class Livro implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Calendar dataLancamento = Calendar.getInstance();
 	private Integer avaliacao;
-	
-	
-	
-	public Integer getAvaliacao() {
+	private Integer qtdDownload;
 
+	
+	public Integer getQtdDownload() {
+		return qtdDownload;
+	}
+
+	public void setQtdDownload(Integer qtdDownload) {
+		this.qtdDownload = qtdDownload;
+	}
+
+	public Integer getAvaliacao() {
 		return avaliacao;
 	}
 
@@ -50,10 +57,10 @@ public class Livro implements Serializable {
 		this.avaliacao = avaliacao;
 	}
 
-	@OneToOne(mappedBy = "livro", cascade = {CascadeType.REMOVE, CascadeType.DETACH, CascadeType.MERGE})
+	@OneToOne(mappedBy = "livro", cascade = { CascadeType.REMOVE, CascadeType.DETACH, CascadeType.MERGE })
 	private Arquivo arquivo;
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.DETACH})
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE, CascadeType.DETACH })
 	private List<Autor> autores = new ArrayList<Autor>();
 
 	@ManyToOne

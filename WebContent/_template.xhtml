@@ -9,7 +9,7 @@
 <h:head />
 <h:body>
 	<div id="cabecalho">
-		<h:graphicImage library="img" name="logo.jpg" />
+		<h:graphicImage library="img" name="baner.jpg" />
 
 		<!-- Menu de todas as paginas abaixo -->
 
@@ -35,11 +35,8 @@
 				</p:submenu>
 
 				<p:submenu label="Ajuda" icon="ui-icon-help">
-					<p:menuitem value="Contents" url="#" />
-					<p:submenu label="Search" icon="ui-icon-search">
+					<p:menuitem value="Help" action="#{configUsuarioBean.formHelp}" />
 						
-						<p:menuitem value="File" url="#" />
-					</p:submenu>
 				</p:submenu>
 
 

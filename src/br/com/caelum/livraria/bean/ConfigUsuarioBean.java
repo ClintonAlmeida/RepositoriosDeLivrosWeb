@@ -19,10 +19,29 @@ import br.com.caelum.livraria.modelo.Usuario;
 public class ConfigUsuarioBean {
 
 	SendMail enviar = new SendMail();
+
 	private Usuario usuario = new Usuario();
+	private String mensagemSuporte;
 	private String senhaAtual;
 	private String novaSenha;
 	private String confirmaSenha;
+	private String tituloDaMensagem;
+
+	public String getTituloDaMensagem() {
+		return tituloDaMensagem;
+	}
+
+	public void setTituloDaMensagem(String tituloDaMensagem) {
+		this.tituloDaMensagem = tituloDaMensagem;
+	}
+
+	public String getMensagemSuporte() {
+		return mensagemSuporte;
+	}
+
+	public void setMensagemSuporte(String mensagemSuporte) {
+		this.mensagemSuporte = mensagemSuporte;
+	}
 
 	public String getSenhaAtual() {
 		return senhaAtual;
@@ -64,8 +83,19 @@ public class ConfigUsuarioBean {
 		this.usuario = usuario;
 	}
 
-	public void redefinirSenha(FacesContext fc, UIComponent component, String senhaAtual)
-			throws ValidatorException {
+	public void enviarMensagenHelp() {
+
+		recebeUsuario();
+		
+		
+		this.enviar.sendMail("repositoriodelivrosdigitais@gmail.com", "repositoriodelivrosdigitais@gmail.com" , this.tituloDaMensagem,
+				this.mensagemSuporte + "\n\n\n" + 
+						"Mensagem enviada de: " +
+						this.usuario.getEmail() + "\n" + this.usuario.getNome());
+
+	}
+
+	public void redefinirSenha(FacesContext fc, UIComponent component, String senhaAtual) throws ValidatorException {
 
 		recebeUsuario();
 
@@ -81,7 +111,7 @@ public class ConfigUsuarioBean {
 
 		System.out.println("Nova Senha: " + this.novaSenha);
 		System.out.println("Confirmação de senha " + this.confirmaSenha);
-		
+
 		// Verifica se o o que foi digitado começa com um
 		if (!this.novaSenha.equals(confirmaSenha)) {
 			System.out.println("Chamou a função");
@@ -106,7 +136,7 @@ public class ConfigUsuarioBean {
 	}
 
 	public void recebeUsuario() {
-		
+
 		recebeObjeto();
 		UsuarioDao usuarioDao = new UsuarioDao();
 		this.usuario = usuarioDao.retornaUsuario(usuario);
@@ -146,6 +176,10 @@ public class ConfigUsuarioBean {
 	public String formAlterarSenha() {
 
 		return "alterarSenha?faces-redirect=true";
+	}
+
+	public String formHelp() {
+		return "help?faces-redirect=true";
 	}
 
 }

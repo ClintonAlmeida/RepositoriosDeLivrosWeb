@@ -42,7 +42,16 @@ public class DescarregadorBean {
 
 		LivroBean livroBean = new LivroBean();
 		
+		if(livro.getQtdDownload() == null) {
+			int temp = 1;
+			livro.setQtdDownload(temp);
+		}else {
+			livro.setQtdDownload(livro.getQtdDownload() + 1);
+		}
 		
+		DAO<Livro> livroDao = new DAO<Livro>(Livro.class);
+		
+		livroDao.atualiza(livro);
 		
 		arquivo.setId(livro.getArquivo().getId());
 		Arquivo arquivo2 = new DAO<Arquivo>(Arquivo.class).buscaPorId(arquivo.getId());
