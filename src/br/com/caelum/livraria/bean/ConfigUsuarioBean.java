@@ -86,9 +86,9 @@ public class ConfigUsuarioBean {
 	public void enviarMensagenHelp() {
 
 		recebeUsuario();
-		
-		
-		this.enviar.sendMail("repositoriodelivrosdigitais@gmail.com", "repositoriodelivrosdigitais@gmail.com" , this.tituloDaMensagem,
+	
+		this.enviar.sendMail("repositoriodelivrosdigitais@gmail.com", "repositoriodelivrosdigitais@gmail.com" , 
+				this.tituloDaMensagem,
 				this.mensagemSuporte + "\n\n\n" + 
 						"Mensagem enviada de: " +
 						this.usuario.getEmail() + "\n" + this.usuario.getNome());
