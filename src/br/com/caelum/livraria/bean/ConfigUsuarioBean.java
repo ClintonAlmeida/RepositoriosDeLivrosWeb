@@ -86,12 +86,20 @@ public class ConfigUsuarioBean {
 	public void enviarMensagenHelp() {
 
 		recebeUsuario();
-	
-		this.enviar.sendMail("repositoriodelivrosdigitais@gmail.com", "repositoriodelivrosdigitais@gmail.com" , 
-				this.tituloDaMensagem,
-				this.mensagemSuporte + "\n\n\n" + 
-						"Mensagem enviada de: " +
-						this.usuario.getEmail() + "\n" + this.usuario.getNome());
+
+		this.enviar.sendMail("repositoriodelivrosdigitais@gmail.com", "repositoriodelivrosdigitais@gmail.com",
+				this.tituloDaMensagem, this.mensagemSuporte + "\n\n\n" + "Mensagem enviada de: "
+						+ this.usuario.getEmail() + "\n" + this.usuario.getNome());
+
+		try {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Mensagem enviada com sucesso: ", ""));
+
+		} catch (NoResultException e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Endereço de e-mail não encontrado", ""));
+
+		}
 
 	}
 

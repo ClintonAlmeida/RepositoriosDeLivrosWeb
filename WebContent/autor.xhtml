@@ -43,12 +43,12 @@
 					<p:message for="email" id="messageEmail" />
 
 					<p:commandButton value="Gravar" action="#{autorBean.gravar}"
-						process="@form" update="@form :formTabelaAutors" />
+						process="@form" update="@form :formTabelaAutors" rendered="#{livroBean.autor}"/>
 				</h:panelGrid>
 			</p:fieldset>
 		</h:form>
 
-		<h:form id="formTabelaAutors">
+		<h:form id="formTabelaAutors" rendered="#{livroBean.autor}">
 			<p:dataList value="#{autorBean.autores}" var="autor"
 				type="definition">
 				<f:facet name="header">

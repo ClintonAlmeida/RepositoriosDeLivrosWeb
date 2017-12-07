@@ -60,11 +60,13 @@
 					<p:outputLabel for="upload" value="Upload do arquivo"
 						rendered="#{livroBean.existeLivro(livro)}" />
 					<p:fileUpload value="#{livroBean.uploadedFile}" id="upload"
+									
 						rendered="#{livroBean.existeLivro(livro)}" mode="simple"
-						skinSimple="false" required="true"
-						allowTypes="/(\.|\/)(gif|jpe?g|png)$/"
+						skinSimple="true" required="true"
+						allowTypes="/(\.|\/)(pdf|pdf?g|pdf)$/"
 						invalidFileMessage="Permitido apenas arquivos em pdf e doc" />
-
+						<!--  <f:ajax event="active" render="messages" />-->
+						
 				</p:panelGrid>
 
 			</p:fieldset>

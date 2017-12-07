@@ -7,7 +7,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -61,7 +63,7 @@ public class UsuarioBean {
 
 	}
 
-	public String gravar() {
+	public String gravar() throws InterruptedException {
 
 		FacesContext context = FacesContext.getCurrentInstance();
 		boolean existe = new UsuarioDao().existeEmail(this.usuario);// se o e-mail existir no sistema o valor é true
@@ -75,22 +77,27 @@ public class UsuarioBean {
 
 		// Se o id for nulo e o email não está no sistema ele grava o usuario
 		if (this.usuario.getId() == null && existe == false) {
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Por favor aguarde",  null);
+	        FacesContext.getCurrentInstance().addMessage(null, message);
 
 			new DAO<Usuario>(Usuario.class).adiciona(this.usuario);
+
 			System.out.println(this.usuario + "Foi cadastrado");
 			// this.enviar.sendMail("repositoriodelivrosdigitais@gmail.com",
 			// this.getUsuario().getEmail(),
 			// "Criação de Conta",
-			// "Ola, " + "\n" + "Usuario criado com sucesso, segue abaixo os dados da conta
-			// " + "\n" + "USUARIO: "
+			// "Ola, " + "\n" + "Usuario criado com sucesso, segue abaixo os dados da conta:
+			// "
+			// + "\n" + "USUARIO: "
 			// + this.usuario.getEmail() + "\n" + "SENHA: " + this.usuario.getSenha());
+
 		} else if (existe == false) {
 			new DAO<Usuario>(Usuario.class).atualiza(this.usuario);
 		} else {
 
 		}
 		this.usuario = new Usuario();
-		
+
 		return "login?faces-redirect=true";
 	}
 
@@ -106,7 +113,7 @@ public class UsuarioBean {
 
 		return "usuario?faces-redirect=true";
 	}
-	
+
 	public String formReenviarSenha() {
 
 		return "reenviarSenha?faces-redirect=true";
@@ -127,12 +134,10 @@ public class UsuarioBean {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Senha enviada para o e-mail: " + email, ""));
 
-			
-
 		} catch (NoResultException e) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Endereço de e-mail não encontrado", ""));
-			
+
 		}
 
 	}

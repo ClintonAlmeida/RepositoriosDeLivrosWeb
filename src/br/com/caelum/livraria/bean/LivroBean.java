@@ -13,6 +13,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+import javax.persistence.RollbackException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -21,6 +22,7 @@ import org.primefaces.model.UploadedFile;
 import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.dao.LivroDao;
 import br.com.caelum.livraria.dao.UsuarioDao;
+import br.com.caelum.livraria.exception.VerificaPdf;
 import br.com.caelum.livraria.modelo.Arquivo;
 import br.com.caelum.livraria.modelo.Autor;
 import br.com.caelum.livraria.modelo.Livro;
@@ -150,24 +152,36 @@ public class LivroBean implements Serializable {
 		System.out.println("Escrito por: " + autor.getNome());
 	}
 
-	public void upload() {
+	public void upload() throws IOException {
+
+		File file = new File(diretorioRaiz(), uploadedFile.getFileName());
+		DAO<Arquivo> daoArquivo = new DAO<Arquivo>(Arquivo.class);
 
 		recebeObjeto();
 
 		try {
-
-			File file = new File(diretorioRaiz(), uploadedFile.getFileName());
-			DAO<Arquivo> daoArquivo = new DAO<Arquivo>(Arquivo.class);
-
-			if (uploadedFile.getFileName().endsWith(".PNG") || uploadedFile.getFileName().endsWith(".png")) {
-				System.out.println("ษ UM ARQUIVO EM JPG");
-			}
 
 			arquivo.setNomeArquivo(uploadedFile.getFileName());
 			arquivo.setCaminhoArquivo(diretorioRaiz());
 			arquivo.setTamanhoArquivo(uploadedFile.getSize());
 			System.out.println("++++++++++++++++++++++++++++++" + arquivo.getNomeArquivo());
 			DAO<Livro> dao = new DAO<Livro>(Livro.class);
+
+			if (uploadedFile.getSize() == 0) {
+
+				System.out.println("บบบบบบบบบบบบบบบบบบบบARQUIVO NULOบบบบบบบบบบบบบบบบบบบบบบบบ");
+			} else {
+
+				if (uploadedFile.getFileName().endsWith("pdf") || uploadedFile.getFileName().endsWith("docx")) {
+
+					System.out.println("****************************Caiu aqui***********************************");
+
+				} else {
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage(FacesMessage.SEVERITY_WARN, "Permitido apenas .pdf e .doc", ""));
+					throw new VerificaPdf(uploadedFile);
+				}
+			}
 
 			if (this.livro.getArquivo() == null) {
 
@@ -190,9 +204,14 @@ public class LivroBean implements Serializable {
 
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Upload completo", "O arquivo " + uploadedFile.getFileName() + " foi salvo!"));
-		} catch (IOException e) {
+		} catch (VerificaPdf e) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "O arquivo nใo foi salvo", e.getMessage()));
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "", e.getMessage()));
+		}
+
+		catch (IOException e) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Voc๊ nใo fez o upload do arquivo", e.getMessage()));
 		}
 
 	}
@@ -233,10 +252,8 @@ public class LivroBean implements Serializable {
 
 			// livro.setArquivo(arquivo);
 			dao.atualiza(this.livro);
-
+			return "ASD";
 		}
-
-		return "listaDeLivros?faces-redirect=true";
 
 	}
 
@@ -266,9 +283,18 @@ public class LivroBean implements Serializable {
 	// Remove um livro do banco de dados
 	public void remover(Livro livro) {
 		System.out.println("Removendo livro");
-		DAO<Livro> dao = new DAO<Livro>(Livro.class);
-		dao.remove(livro);
-		// this.livros = dao.listaTodos();
+
+		try {
+			DAO<Livro> dao = new DAO<Livro>(Livro.class);
+			dao.remove(livro);
+			// this.livros = dao.listaTodos();
+
+		} catch (RollbackException e) {
+
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+					"Impossivel apagar estแ obra", e.getMessage()));
+
+		}
 	}
 
 	// Remove um autor do livro na pagina livro.xhtml

@@ -24,23 +24,27 @@
 
 				<h:panelGrid columns="3">
 
-				
-				<p:outputLabel value="Titulo: " for="titulo" />
-				<p:inputText id="titulo" value="#{configUsuarioBean.tituloDaMensagem}" />
-				
-				<br/>
-				
-				<p:outputLabel value="Mensagem: " for="comentario" />
-				<p:inputTextarea rows="6" cols="33" id="comentario"
-						value="#{configUsuarioBean.mensagemSuporte}" required="false" validator="#{ratingView.apenasMilLetras}">
+
+					<p:outputLabel value="Titulo: " for="titulo" />
+					<p:inputText id="titulo"
+						value="#{configUsuarioBean.tituloDaMensagem}" />
+
+					<br />
+
+					<p:outputLabel value="Mensagem: " for="comentario" />
+					<p:inputTextarea rows="6" cols="33" id="comentario"
+						value="#{configUsuarioBean.mensagemSuporte}" required="false"
+						validator="#{ratingView.apenasMilLetras}"
+						oncomplete="console.log('Envio concluído')">
 					</p:inputTextarea>
 
 
-					
+
 					<br />
 					<p:commandButton value="Enviar"
-						action="#{configUsuarioBean.enviarMensagenHelp}"
-						update="@form " process="@form" />
+						action="#{configUsuarioBean.enviarMensagenHelp}" update="@form "
+						process="@form"
+						onstart="console.log('Iniciando envio de mensagem')" />
 				</h:panelGrid>
 			</p:fieldset>
 		</h:form>
