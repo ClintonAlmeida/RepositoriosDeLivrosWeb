@@ -167,35 +167,36 @@ public class LivroBean implements Serializable {
 			System.out.println("++++++++++++++++++++++++++++++" + arquivo.getNomeArquivo());
 			DAO<Livro> dao = new DAO<Livro>(Livro.class);
 
-			if (uploadedFile.getSize() == 0) {
-
-				System.out.println("ººººººººººººººººººººARQUIVO NULOºººººººººººººººººººººººº");
+			if (uploadedFile == null) {
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO, "Necessario realizar o upload de um arquivo", ""));
+				
 			} else {
 
 				if (uploadedFile.getFileName().endsWith("pdf") || uploadedFile.getFileName().endsWith("docx")) {
 
 					System.out.println("****************************Caiu aqui***********************************");
 
+					if (this.livro.getArquivo() == null) {
+
+						arquivo.setLivro(livro);
+						System.out.println("Id do livro " + this.livro.getId());
+						daoArquivo.adiciona(arquivo);
+
+					} else {
+
+						arquivo.setId(this.livro.getArquivo().getId());
+						arquivo.setLivro(this.livro);
+						this.livro.setArquivo(arquivo);
+						daoArquivo.atualiza(arquivo);
+
+					}
 				} else {
-					FacesContext.getCurrentInstance().addMessage(null,
-							new FacesMessage(FacesMessage.SEVERITY_WARN, "Permitido apenas .pdf e .doc", ""));
-					throw new VerificaPdf(uploadedFile);
+
 				}
-			}
-
-			if (this.livro.getArquivo() == null) {
-
-				arquivo.setLivro(livro);
-				System.out.println("Id do livro " + this.livro.getId());
-				daoArquivo.adiciona(arquivo);
-
-			} else {
-
-				arquivo.setId(this.livro.getArquivo().getId());
-				arquivo.setLivro(this.livro);
-				this.livro.setArquivo(arquivo);
-				daoArquivo.atualiza(arquivo);
-
+				FacesContext.getCurrentInstance().addMessage(null,
+						new FacesMessage(FacesMessage.SEVERITY_WARN, "Permitido apenas o upload de .pdf e .docx", ""));
+				throw new VerificaPdf(uploadedFile);
 			}
 
 			OutputStream out = new FileOutputStream(file);
@@ -243,16 +244,33 @@ public class LivroBean implements Serializable {
 		recebeUsuario();
 		this.livro.setUsuario(this.usuario);
 
-		if (this.livro.getId() == null) {
-			dao.adiciona(this.livro);
+		recebeUsuario();
 
-			return this.formLivroAtualizar();
+		if (this.usuario.getPerfil().equals(Perfil.Leitor)) {
+
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "VOCÊ NÃO POSSUI PERMISSÃO PARA ESTÁ OPERAÇÃO", ""));
+			return null;
 
 		} else {
 
-			// livro.setArquivo(arquivo);
-			dao.atualiza(this.livro);
-			return "ASD";
+			if (this.livro.getId() == null) {
+
+				dao.adiciona(this.livro);
+
+				return this.formLivroAtualizar();
+
+			} else {
+				// livro.setArquivo(arquivo);
+				if (uploadedFile.getFileName().endsWith("pdf") || uploadedFile.getFileName().endsWith("docx")) {
+					dao.atualiza(this.livro);
+					return formListaDeLivros();
+				} else {
+					return null;
+				}
+
+			}
+
 		}
 
 	}
@@ -291,8 +309,8 @@ public class LivroBean implements Serializable {
 
 		} catch (RollbackException e) {
 
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-					"Impossivel apagar está obra", e.getMessage()));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "Impossivel apagar está obra", e.getMessage()));
 
 		}
 	}
@@ -313,7 +331,7 @@ public class LivroBean implements Serializable {
 	// Está função é chamada quando se clica no cadastrar um autor.
 
 	public String formMeusLivros() {
-		System.out.println("Chamanda do formulario do Autor.");
+		System.out.println("Chamanda do formulario do Meus Livros.");
 		// O trecho abaixo te redireciona para a pagina de criação de autor
 		return "meusLivros?faces-redirect=true";
 	}
@@ -379,6 +397,26 @@ public class LivroBean implements Serializable {
 		System.out.println("Livro é o  " + livro.getTitulo());
 
 		return "avaliacao?faces-redirect=true";
+	}
+
+	public String enviaObjetoAvaliar(Livro livro) {
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
+		session.setAttribute("livroId", livro);
+		System.out.println("Livro é o  " + livro.getTitulo());
+
+		return "avaliacao?faces-redirect=true";
+	}
+
+	public String enviaObjetoComentarios(Livro livro) {
+
+		FacesContext fc = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(true);
+		session.setAttribute("livroId", livro);
+		System.out.println("Livro é o  " + livro.getTitulo());
+
+		return "exibirComentarios?faces-redirect=true";
 	}
 
 	public String enviaLivroParaAtualizar(Livro livro) {

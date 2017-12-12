@@ -54,12 +54,18 @@
 
 				</p:column>
 
+				<p:column headerText="Comentarios">
+
+					<h:commandLink value="Comentarios"
+						action="#{livroBean.enviaObjetoComentarios(livro)}"
+						actionListener="#{livroBean.enviaObjetoComentarios(livro)}" />
+				</p:column>
 
 				<p:column headerText="Avaliar">
 
 					<h:commandLink value="Avaliação"
-						action="#{livroBean.enviaObjeto(livro)}"
-						actionListener="#{livroBean.enviaObjeto(livro)}" />
+						action="#{livroBean.enviaObjetoAvaliar(livro)}"
+						actionListener="#{livroBean.enviaObjetoAvaliar(livro)}" />
 				</p:column>
 
 				<p:column headerText="Quantidade de Downloads">
