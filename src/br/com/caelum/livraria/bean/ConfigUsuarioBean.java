@@ -26,6 +26,17 @@ public class ConfigUsuarioBean {
 	private String novaSenha;
 	private String confirmaSenha;
 	private String tituloDaMensagem;
+	private String email;
+	
+	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public String getTituloDaMensagem() {
 		return tituloDaMensagem;
@@ -151,6 +162,9 @@ public class ConfigUsuarioBean {
 	}
 
 	public void reenviarSenha(String email) {
+		
+		
+		System.out.println("*********E-MAIL: " + email);
 
 		try {
 
@@ -159,6 +173,9 @@ public class ConfigUsuarioBean {
 			UsuarioDao usuarioDao = new UsuarioDao();
 
 			Usuario user = usuarioDao.retornaUsuario(usuario);
+			
+			System.out.println("+++++++++++++++++++ " + user.getNome()+ "++++++++++++++++++++++");
+			
 			this.enviar.sendMail("repositoriodelivrosdigitais@gmail.com", email, "SENHA DE ACESSO",
 					"Olá, " + "\n" + "Segue abaixo os dados para " + "acesso ao sistema: " + "\n" + "e-mail: "
 							+ user.getEmail() + "\n" + "senha: " + user.getSenha());

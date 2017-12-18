@@ -33,7 +33,7 @@
 
 					<br />
 					<p:commandButton value="Enviar"
-						action="#{configUsuarioBean.redefinirSenha(usuarioBean.usuario.email)}"
+						action="#{configUsuarioBean.reenviarSenha(configUsuarioBean.usuario.email)}"
 						update="@form " process="@form" />
 				</h:panelGrid>
 			</p:fieldset>
